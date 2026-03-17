@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace StageSystem.Ink
 {
-public class InkDebuger : MonoBehaviour
+public class InkDebugger : MonoBehaviour
 {
     Rigidbody2D _rigidbody;
     
