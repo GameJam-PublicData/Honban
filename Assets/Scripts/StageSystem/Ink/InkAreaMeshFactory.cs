@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace StageSystem.Ink
@@ -20,33 +21,14 @@ public static class InkAreaMeshFactory
 
         Mesh mesh = new Mesh();
         mesh.name = "PolygonMesh";
-
-        // Vector2 → Vector3（Z=0）
-        Vector3[] vertices = new Vector3[points.Length];
-        for (int i = 0; i < points.Length; i++)
-            vertices[i] = new Vector3(points[i].x, points[i].y, 0f);
+        
+        Vector3[] vertices = points.Select(p => new Vector3(p.x, p.y, 0f)).ToArray();
 
         // Ear Clipping で三角形インデックスを生成
         int[] triangles = Triangulate(points);
-
-        // UV（0〜1に正規化）
-        Vector2 min = points[0], max = points[0];
-        foreach (var p in points)
-        {
-            min = Vector2.Min(min, p);
-            max = Vector2.Max(max, p);
-        }
-        Vector2 size = max - min;
-        Vector2[] uvs = new Vector2[points.Length];
-        for (int i = 0; i < points.Length; i++)
-            uvs[i] = new Vector2(
-                (points[i].x - min.x) / size.x,
-                (points[i].y - min.y) / size.y
-            );
-
+        
         mesh.vertices  = vertices;
         mesh.triangles = triangles;
-        mesh.uv        = uvs;
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         return mesh;
