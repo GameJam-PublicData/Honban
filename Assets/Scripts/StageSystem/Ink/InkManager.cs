@@ -18,7 +18,7 @@ public class InkManager : MonoBehaviour , IInkManager
     Transform _inkAreaRootParent;
     ICurrentInkEffect _currentInkEffect;
 
-    void Start()
+    void Awake()
     {
         _inkAreaRootParent = new GameObject("InkAreaRoot").transform;
     } 

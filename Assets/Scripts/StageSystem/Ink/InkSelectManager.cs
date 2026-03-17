@@ -15,7 +15,7 @@ public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
 {
     InputActions _inputActions;
 
-    ReactiveProperty<IInkEffect> _currentInkEffect;
+    ReactiveProperty<IInkEffect> _currentInkEffect = new();
     public ReadOnlyReactiveProperty<IInkEffect> Get  => _currentInkEffect;
 
     readonly List<IInkEffect>  _inkEffects = new();
@@ -26,6 +26,7 @@ public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
         //ステージのInkEffectを追加する
         //todo最終的にはsextsuteidekiruyouni
         _inkEffects.Add(new NoGravityInkEffect());
+        _currentInkEffect.Value = _inkEffects[_currentIndex];
     }
     
     

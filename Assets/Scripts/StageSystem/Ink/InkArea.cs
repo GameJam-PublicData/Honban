@@ -24,8 +24,10 @@ public class InkArea : MonoBehaviour, IInkArea
 
     public void CreateInkArea(List<Vector2> points, IInkEffect effect)
     {
-        _mesh = new Mesh();
-        //pointsに沿った形のMeshを作る
+        _mesh = InkAreaMeshFactory.Create(points.ToArray());
+        meshFilter.mesh = _mesh;
+        
+        //DestroyInkArea().Forget();
     }
 
     async UniTask DestroyInkArea()

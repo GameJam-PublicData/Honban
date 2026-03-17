@@ -6,7 +6,7 @@ namespace StageSystem.Area
 {
     public interface IStrokeBuilder
     {
-        bool IsCrossing(Vector2 worldPos, Action<List<Vector2>> points);
+        bool IsCrossing(Vector2 worldPos,out List<Vector2> points);
         void Clear();
         void Health();
     }
@@ -16,10 +16,16 @@ namespace StageSystem.Area
         readonly List<Vector2> _points = new();
         const float MinDistance = 0.05f;
 
-        public bool IsCrossing(Vector2 worldPos, Action<List<Vector2>> points)
+        public bool DistanceCheck(Vector2 worldPos)
         {
+            return _points.Count > 0 && Vector2.Distance(_points[^1], worldPos) < MinDistance;
+        }
+        
+        public bool IsCrossing(Vector2 worldPos, out List<Vector2> points)
+        {
+            points = _points;
             // 直前で記録したポイントとの距離を計算しmin値以上か判別
-            if (_points.Count > 0 && Vector2.Distance(_points[^1], worldPos) < MinDistance) return false;
+            if (DistanceCheck(worldPos)) return false;
 
             _points.Add(worldPos);
             Debug.Log($"ポイント追加: {worldPos}, 総ポイント数: {_points.Count}");
@@ -31,18 +37,24 @@ namespace StageSystem.Area
             for (int i = 0; i < _points.Count - 3; i++)
             {
                 var start = _points[i];
+                int startIndex = i;
                 var end = _points[i + 1];
                 
                 if (Intersect(latestStart, latestEnd, start, end))
                 {
                     Debug.Log("交差を検出");
                     
+                    //現在と一つ前の線分(last~)とfor文で現在のポイントをチェックしている
                     // TODO: 領域のみのポイントを抽出するロジックを実装
-                    points(_points);
+                    
+                    
+                    //StartとEndの線分が交差しているか
+                    
+                    _points.RemoveRange(0,startIndex);//Startまでを消す
+                    points = _points;
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -60,5 +72,7 @@ namespace StageSystem.Area
         static float Cross(Vector2 u, Vector2 v) => u.x * v.y - u.y * v.x;
 
         public void Health() => Debug.Log("OK");
+        
+
     }
 }
