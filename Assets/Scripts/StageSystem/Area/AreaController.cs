@@ -90,7 +90,10 @@ namespace StageSystem.Area
                 var worldPos = (Vector2)_mainCamera.ScreenToWorldPoint(
                     new Vector3(screenPos.x, screenPos.y, Mathf.Abs(_mainCamera.transform.position.z)));
 
-                if (_strokeBuilder.IsCrossing(worldPos, _cursorTrail.Draw, out var points))
+                bool isCrossing = _strokeBuilder.IsCrossing(worldPos, out var points);
+                _cursorTrail.Draw(points);
+                
+                if (isCrossing)
                 {
                     Debug.Log("交差が確認されました");
                     OnCrossed(points);

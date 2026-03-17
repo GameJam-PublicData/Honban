@@ -6,7 +6,7 @@ namespace StageSystem.Area
 {
     public interface IStrokeBuilder
     {
-        bool IsCrossing(Vector2 worldPos, Action<List<Vector2>> historyPoints, out List<Vector2> areaPoints);
+        bool IsCrossing(Vector2 worldPos, out List<Vector2> points);
         void Clear();
     }
 
@@ -20,15 +20,14 @@ namespace StageSystem.Area
             return _points.Count > 0 && Vector2.Distance(_points[^1], worldPos) < MinDistance;
         }
         
-        public bool IsCrossing(Vector2 worldPos, Action<List<Vector2>> historyPoints, out List<Vector2> areaPoints)
+        public bool IsCrossing(Vector2 worldPos, out List<Vector2> points)
         {
-            areaPoints = _points;
+            points = _points;
 
             // 直前で記録したポイントとの距離を計算しmin値以上か判別
             if (DistanceCheck(worldPos)) return false;
 
             _points.Add(worldPos);
-            historyPoints?.Invoke(_points);
             // Debug.Log($"ポイント追加: {worldPos}, 総ポイント数: {_points.Count}");
             if (_points.Count < 4) return false;
             
@@ -47,7 +46,7 @@ namespace StageSystem.Area
                     //現在と一つ前の線分(last~)とfor文で現在のポイントをチェックしている
                     //StartとEndの線分が交差しているか
                     _points.RemoveRange(0,startIndex);//Startまでを消す
-                    areaPoints = _points;
+                    points = _points;
                     return true;
                 }
             }
