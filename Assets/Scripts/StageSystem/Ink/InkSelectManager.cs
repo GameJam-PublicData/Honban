@@ -1,24 +1,31 @@
 using System.Collections.Generic;
 using InputSystemActions;
 using R3;
+using StageSystem.Ink.Inks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace StageSystem
+namespace StageSystem.Ink
 {
-public class InkStageSelectManager : MonoBehaviour
+public interface ICurrentInkEffect
+{
+    ReadOnlyReactiveProperty<IInkEffect> Get { get; }
+}
+public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
 {
     InputActions _inputActions;
 
-    public ReactiveProperty<IInkEffect> CurrentInkEffect;
+    ReactiveProperty<IInkEffect> _currentInkEffect;
+    public ReadOnlyReactiveProperty<IInkEffect> Get  => _currentInkEffect;
 
-    List<IInkEffect>  _inkEffects = new();
+    readonly List<IInkEffect>  _inkEffects = new();
     int _currentIndex = 0;
 
     void InkEffectsInitialize()
     {
         //ステージのInkEffectを追加する
         //todo最終的にはsextsuteidekiruyouni
+        _inkEffects.Add(new NoGravityInkEffect());
     }
     
     
@@ -39,7 +46,7 @@ public class InkStageSelectManager : MonoBehaviour
             _currentIndex = 0;
         }
         
-        CurrentInkEffect.Value  = _inkEffects[_currentIndex];
+        _currentInkEffect.Value  = _inkEffects[_currentIndex];
     }
 
     void BackInk(InputAction.CallbackContext ctx)
@@ -49,7 +56,7 @@ public class InkStageSelectManager : MonoBehaviour
         {
             _currentIndex = _inkEffects.Count - 1;
         }
-        CurrentInkEffect.Value  = _inkEffects[_currentIndex];
+        _currentInkEffect.Value  = _inkEffects[_currentIndex];
     }
 
     void OnDisable()
@@ -58,9 +65,7 @@ public class InkStageSelectManager : MonoBehaviour
         _inputActions.Player.BackInk.started -= BackInk;
         _inputActions.Player.Disable();
     }
-    
-    
-    
+
     
 }
 }
