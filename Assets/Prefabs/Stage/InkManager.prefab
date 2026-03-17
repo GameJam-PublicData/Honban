@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkManager
   inkAreaPrefab: {fileID: 8365833136900873199, guid: 612c661acdbe4446dbd862cbb466057d, type: 3}
+  inkEffectMaterialSO: {fileID: 11400000, guid: f77451bb72d8743d9a6d76489c9aa139, type: 2}
 --- !u!114 &3686689749201251157
 MonoBehaviour:
   m_ObjectHideFlags: 0

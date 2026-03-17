@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkArea
   meshFilter: {fileID: 2899857510269229829}
+  meshRenderer: {fileID: 7114449788957341989}
 --- !u!33 &2899857510269229829
 MeshFilter:
   m_ObjectHideFlags: 0

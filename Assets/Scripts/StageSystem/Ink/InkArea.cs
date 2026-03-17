@@ -6,12 +6,14 @@ namespace StageSystem.Ink
 {
 public interface IInkArea
 {
-    void  CreateInkArea(List<Vector2> points, IInkEffect effect);
+    void  CreateInkArea(List<Vector2> points, IInkEffect effect,Material material);
 }
 /// <summary> インクエリアのオブジェクトにつけられる </summary>
 public class InkArea : MonoBehaviour, IInkArea
 {
     [SerializeField] MeshFilter meshFilter;
+    [SerializeField] MeshRenderer meshRenderer;
+    
     
     const float InkAreaActiveTime = 10f;
     
@@ -20,15 +22,19 @@ public class InkArea : MonoBehaviour, IInkArea
     void Reset()
     {
         meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void CreateInkArea(List<Vector2> points, IInkEffect effect)
+    public void CreateInkArea(List<Vector2> points, IInkEffect effect,Material material)
     {
         _mesh = InkAreaMeshFactory.Create(points.ToArray());
         meshFilter.mesh = _mesh;
+        meshRenderer.material = material;
         
-        //DestroyInkArea().Forget();
+        DestroyInkArea().Forget();
     }
+
+    public string MaterialName { get; }
 
     async UniTask DestroyInkArea()
     {
@@ -36,6 +42,7 @@ public class InkArea : MonoBehaviour, IInkArea
         //todo エフェクト
         Destroy(gameObject);
     }
+    
 }
 }
   

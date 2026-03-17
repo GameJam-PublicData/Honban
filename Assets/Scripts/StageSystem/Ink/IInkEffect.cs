@@ -10,5 +10,7 @@ public interface IInkEffect
     void UpdateInkArea(Rigidbody2D rigidbody);
     void StartInkArea(Rigidbody2D  rigidbody);
     void StopInkArea(Rigidbody2D rigidbody);
+
+    string MaterialName { get; }
 }
 }
