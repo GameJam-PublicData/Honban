@@ -5,14 +5,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "94ec0872e4f9addcddc05ef4db2286b6691e82b5"
+      "hash": "2b49ed40436b89e023df4cc0d39db67de2c78735"
     },
     "com.cysharp.messagepipe.vcontainer": {
       "version": "https://github.com/Cysharp/MessagePipe.git?path=src/MessagePipe.Unity/Assets/Plugins/MessagePipe.VContainer",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "94ec0872e4f9addcddc05ef4db2286b6691e82b5"
+      "hash": "2b49ed40436b89e023df4cc0d39db67de2c78735"
     },
     "com.cysharp.r3": {
       "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",
@@ -28,7 +28,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "73a63b7f672b88f7e9992f6917eb458a8cbb6fa9"
+      "hash": "a9e27c03d411d2fca01cc7410c24c97cd77cb539"
     },
     "com.github-glitchenzo.nugetforunity": {
       "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
