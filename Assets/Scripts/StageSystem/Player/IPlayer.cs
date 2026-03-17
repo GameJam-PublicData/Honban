@@ -6,4 +6,10 @@ namespace StageSystem.Player
     {
         public void TakeDamage(int damage);
     }
+
+public interface IPlayerHP : IPlayerDamage
+{
+    public void Heal(int heal);
+    public void SetHP(int hp);
+}
 }

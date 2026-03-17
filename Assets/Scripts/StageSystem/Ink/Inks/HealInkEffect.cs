@@ -22,7 +22,7 @@ namespace StageSystem.Ink.Inks
         {
             if (!_healTimers.ContainsKey(body)) return;
 
-            var playerHpManager = body.GetComponent<PlayerHpManager>();
+            var playerHpManager = body.GetComponent<IPlayerHP>();
             if (playerHpManager == null) return;
 
             _healTimers[body] += Time.deltaTime;
@@ -30,7 +30,7 @@ namespace StageSystem.Ink.Inks
 
             var tickCount = Mathf.FloorToInt(_healTimers[body] / healInterval);
             _healTimers[body] -= tickCount * healInterval;
-            playerHpManager._hp += healAmountPerTick * tickCount;
+            playerHpManager.Heal(healAmountPerTick * tickCount);
         }
 
         public void StopInkArea(Rigidbody2D body)
