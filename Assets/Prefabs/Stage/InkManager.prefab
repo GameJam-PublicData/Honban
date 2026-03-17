@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4444361483902747576}
   - component: {fileID: 83552414234080233}
   - component: {fileID: 3686689749201251157}
-  - component: {fileID: 1594957229232914454}
+  - component: {fileID: 5411186102335690392}
   m_Layer: 0
   m_Name: InkManager
   m_TagString: Untagged
@@ -60,25 +60,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1764fcc7bf4893a6262192d116af43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkStageSelectManager
---- !u!64 &1594957229232914454
-MeshCollider:
+--- !u!114 &5411186102335690392
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4002406578896618196}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7bb8e82095424ab00f691eb99b6fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Area.AreaController
