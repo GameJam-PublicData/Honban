@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -5,33 +6,35 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using InputSystemActions;
 using StageSystem.Ink;
-using VContainer;
+using StageSystem.UI.Mouse;
+using VContainer.Unity;
 
 namespace StageSystem.Area
 {
-    public class AreaController : MonoBehaviour
+    public class AreaController : IPostStartable, IDisposable
     {
         Camera _mainCamera;
         IStrokeBuilder _strokeBuilder;
         InputActions _inputActions;
         CancellationTokenSource _drawingCts;
         IInkManager _inkManager;
-
-        void Start()
-        {
-            _strokeBuilder.Health();
-            _mainCamera = Camera.main;
-        }
+        ICursorTrail _cursorTrail;
         
-        [Inject]
-        public void Construct(IStrokeBuilder strokeBuilder,IInkManager inkManager)
+        public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager, ICursorTrail cursorTrail)
         {
+            Debug.Log("AreaController");
+            
             _strokeBuilder = strokeBuilder;
             _inkManager = inkManager;
+            _cursorTrail = cursorTrail;
         }
-
-        void OnEnable()
+        
+        public void PostStart()
         {
+            Debug.Log("Initialize");
+            
+            _mainCamera = Camera.main;
+            
             _inputActions = new InputActions();
             _inputActions.Enable();
             
@@ -39,8 +42,10 @@ namespace StageSystem.Area
             _inputActions.Player.Attack.canceled += OnAttackCanceled;
         }
 
-        void OnDisable()
+        public void Dispose()
         {
+            Debug.Log("Dispose");
+            
             _inputActions.Player.Attack.started -= OnAttackStarted;
             _inputActions.Player.Attack.canceled -= OnAttackCanceled;
             _inputActions.Disable();
@@ -85,7 +90,7 @@ namespace StageSystem.Area
                 var worldPos = (Vector2)_mainCamera.ScreenToWorldPoint(
                     new Vector3(screenPos.x, screenPos.y, Mathf.Abs(_mainCamera.transform.position.z)));
 
-                if (_strokeBuilder.IsCrossing(worldPos, out var points))
+                if (_strokeBuilder.IsCrossing(worldPos, _cursorTrail.Draw, out var points))
                 {
                     Debug.Log("交差が確認されました");
                     OnCrossed(points);

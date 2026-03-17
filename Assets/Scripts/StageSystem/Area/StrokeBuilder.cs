@@ -6,9 +6,8 @@ namespace StageSystem.Area
 {
     public interface IStrokeBuilder
     {
-        bool IsCrossing(Vector2 worldPos,out List<Vector2> points);
+        bool IsCrossing(Vector2 worldPos, Action<List<Vector2>> historyPoints, out List<Vector2> areaPoints);
         void Clear();
-        void Health();
     }
 
     public class StrokeBuilder : IStrokeBuilder
@@ -21,14 +20,16 @@ namespace StageSystem.Area
             return _points.Count > 0 && Vector2.Distance(_points[^1], worldPos) < MinDistance;
         }
         
-        public bool IsCrossing(Vector2 worldPos, out List<Vector2> points)
+        public bool IsCrossing(Vector2 worldPos, Action<List<Vector2>> historyPoints, out List<Vector2> areaPoints)
         {
-            points = _points;
+            areaPoints = _points;
+
             // 直前で記録したポイントとの距離を計算しmin値以上か判別
             if (DistanceCheck(worldPos)) return false;
 
             _points.Add(worldPos);
-            Debug.Log($"ポイント追加: {worldPos}, 総ポイント数: {_points.Count}");
+            historyPoints?.Invoke(_points);
+            // Debug.Log($"ポイント追加: {worldPos}, 総ポイント数: {_points.Count}");
             if (_points.Count < 4) return false;
             
             var latestStart = _points[^2];
@@ -43,15 +44,10 @@ namespace StageSystem.Area
                 if (Intersect(latestStart, latestEnd, start, end))
                 {
                     Debug.Log("交差を検出");
-                    
                     //現在と一つ前の線分(last~)とfor文で現在のポイントをチェックしている
-                    // TODO: 領域のみのポイントを抽出するロジックを実装
-                    
-                    
                     //StartとEndの線分が交差しているか
-                    
                     _points.RemoveRange(0,startIndex);//Startまでを消す
-                    points = _points;
+                    areaPoints = _points;
                     return true;
                 }
             }
@@ -70,9 +66,5 @@ namespace StageSystem.Area
         }
 
         static float Cross(Vector2 u, Vector2 v) => u.x * v.y - u.y * v.x;
-
-        public void Health() => Debug.Log("OK");
-        
-
     }
 }
