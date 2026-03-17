@@ -18,7 +18,7 @@ public class StageLifeTimeScope : LifetimeScope
     {
         // StageSceneに特化した依存関係の登録をここに追加
         builder.RegisterComponentInHierarchy<IAudioManager>();
-        builder.RegisterComponentInHierarchy<InkStageSelectManager>().As<ICurrentInkEffect>();
+        builder.RegisterComponentInHierarchy<InkSelectManager>().As<ICurrentInkEffect>();
     }
 
     void Start()

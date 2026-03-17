@@ -6,7 +6,6 @@ namespace StageSystem.Ink.Inks
 public class NoGravityInkEffect  : IInkEffect
 {
     readonly Dictionary<Rigidbody, Vector3> _originalVelocities = new();
-
     
     public void UpdateInkArea(Rigidbody rigidbody)
     {

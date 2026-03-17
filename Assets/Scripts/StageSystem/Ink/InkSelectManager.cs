@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using InputSystemActions;
 using R3;
+using StageSystem.Ink.Inks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,14 +9,14 @@ namespace StageSystem.Ink
 {
 public interface ICurrentInkEffect
 {
-    Observable<IInkEffect> Get { get; }
+    ReadOnlyReactiveProperty<IInkEffect> Get { get; }
 }
-public class InkStageSelectManager : MonoBehaviour ,ICurrentInkEffect
+public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
 {
     InputActions _inputActions;
 
     ReactiveProperty<IInkEffect> _currentInkEffect;
-    public Observable<IInkEffect> Get  => _currentInkEffect;
+    public ReadOnlyReactiveProperty<IInkEffect> Get  => _currentInkEffect;
 
     readonly List<IInkEffect>  _inkEffects = new();
     int _currentIndex = 0;
@@ -24,7 +25,7 @@ public class InkStageSelectManager : MonoBehaviour ,ICurrentInkEffect
     {
         //ステージのInkEffectを追加する
         //todo最終的にはsextsuteidekiruyouni
-        
+        _inkEffects.Add(new NoGravityInkEffect());
     }
     
     
