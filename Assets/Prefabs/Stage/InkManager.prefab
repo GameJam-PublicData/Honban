@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 83552414234080233}
   - component: {fileID: 3686689749201251157}
   - component: {fileID: 5411186102335690392}
+  - component: {fileID: 7118727541432019050}
   m_Layer: 0
   m_Name: InkManager
   m_TagString: Untagged
@@ -72,3 +73,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bb8e82095424ab00f691eb99b6fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Area.AreaController
+--- !u!114 &7118727541432019050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002406578896618196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79386803025724c9d981778661640726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkAmount

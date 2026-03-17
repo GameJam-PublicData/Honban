@@ -1,24 +1,30 @@
-using System;
+using StageSystem.Ink;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
-namespace StageSystem.Ink
+namespace StageSystem.UI
 {
     public class InkUI : MonoBehaviour
     {
         [SerializeField] Slider slider;
-        private InkUse _inkUse;
+        IInkAmount _inkAmount;
 
+        [Inject]
+        void Construct(IInkAmount inkAmount)
+        {
+            _inkAmount = inkAmount;
+        }
+        
         void Start()
         {
-            _inkUse = FindObjectOfType<InkUse>();
             slider.value = 1;
         }
 
         // Update is called once per frame
         void Update()
         {
-            slider.value = _inkUse.ink / 100f;
+            slider.value = _inkAmount.Ink / 100f;
         }
     }
 }
