@@ -12,7 +12,7 @@ public interface IInkAmount
 }
 public class InkAmount : MonoBehaviour,IInkAmount
 {
-    int _inkUsage = 1;
+    [SerializeField]int inkUsage = 1;
     bool _isHolding;
     InputActions  _inputActions;
 
@@ -23,7 +23,7 @@ public class InkAmount : MonoBehaviour,IInkAmount
     {
         if (_isHolding && Ink > 0)
         {
-            Ink -= _inkUsage * Time.deltaTime;
+            Ink -= inkUsage * Time.deltaTime;
             if(Ink < 0) Ink = 0;
         }
     }
@@ -37,7 +37,7 @@ public class InkAmount : MonoBehaviour,IInkAmount
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             _isHolding = true;
         }
