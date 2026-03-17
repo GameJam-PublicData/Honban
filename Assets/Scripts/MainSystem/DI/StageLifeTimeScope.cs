@@ -13,7 +13,6 @@ namespace MainSystem.DI
 {
 public class StageLifeTimeScope : LifetimeScope
 {
-    [SerializeField] GameObject inkEffectPrefab;
     protected override void Configure(IContainerBuilder builder)
     {
         // StageSceneに特化した依存関係の登録をここに追加
