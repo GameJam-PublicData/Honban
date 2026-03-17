@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5433921995990545826}
   - component: {fileID: 2899857510269229829}
   - component: {fileID: 7114449788957341989}
+  - component: {fileID: 8286361575157294282}
   m_Layer: 0
   m_Name: InkArea
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkArea
   meshFilter: {fileID: 2899857510269229829}
+  meshRenderer: {fileID: 7114449788957341989}
+  meshCollider: {fileID: 8286361575157294282}
 --- !u!33 &2899857510269229829
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -104,3 +107,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8286361575157294282
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365833136900873199}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
