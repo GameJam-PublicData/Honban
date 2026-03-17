@@ -6,6 +6,7 @@ namespace StageSystem.UI.Mouse
     public interface ICursorTrail
     {
         void Draw(List<Vector2> points);
+        void ChangeColor(Color color);
     }
     public class CursorTrail :  MonoBehaviour, ICursorTrail
     {
@@ -35,6 +36,12 @@ namespace StageSystem.UI.Mouse
                 Vector3 localPos = transform.TransformPoint(worldPos);
                 _lineRenderer.SetPosition(i, localPos);
             }
+        }
+
+        public void ChangeColor(Color color)
+        {
+            _lineRenderer.startColor = color;
+            _lineRenderer.endColor = color;
         }
     }
 }
