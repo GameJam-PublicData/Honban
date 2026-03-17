@@ -5,19 +5,19 @@ namespace StageSystem.Ink
 {
 public class InkAntiGravity : MonoBehaviour,IInkEffect
 {
-    public void UpdateInkArea(Rigidbody rigidbody)
+    public void UpdateInkArea(Rigidbody2D rigidbody)
+    {
+        rigidbody.gravityScale = -1;
+    }
+
+    public void StartInkArea(Rigidbody2D rigidbody)
     {
         
     }
 
-    public void StartInkArea(Rigidbody rigidbody)
+    public void StopInkArea(Rigidbody2D rigidbody)
     {
-        
-    }
-
-    public void StopInkArea(Rigidbody rigidbody)
-    {
-        throw new NotImplementedException();
+        rigidbody.gravityScale = 1;
     }
 }
 }
