@@ -8,17 +8,17 @@ public class NoGravityInkEffect  : IInkEffect
     readonly Dictionary<Rigidbody2D, Vector2> _originalVelocities = new();
     public string MaterialName => "NoGravityInkMaterial";
     
-    public void UpdateInkArea(Rigidbody2D rigidbody)
+    public void UpdateInkArea(Rigidbody2D body)
     {
         Debug.Log("重力なしインクエリアの更新");
-        rigidbody.MovePosition(rigidbody.position + _originalVelocities[rigidbody] * Time.deltaTime);
+        body.MovePosition(body.position + _originalVelocities[body] * Time.deltaTime);
     }
 
-    public void StartInkArea(Rigidbody2D rigidbody)
+    public void StartInkArea(Rigidbody2D body)
     {
         Debug.Log("重力なしインクエリアの開始");
 
-        _originalVelocities[rigidbody] = rigidbody.linearVelocity;
+        _originalVelocities[body] = body.linearVelocity;
     }
 
     public void StopInkArea(Rigidbody2D rigidbody)
@@ -26,7 +26,5 @@ public class NoGravityInkEffect  : IInkEffect
         Debug.Log("重力なしインクエリアの終了");
         _originalVelocities.Remove(rigidbody);
     }
-
-
 }
 }
