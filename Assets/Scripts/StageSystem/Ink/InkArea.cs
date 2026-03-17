@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using R3;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace StageSystem.Ink
@@ -7,6 +10,8 @@ namespace StageSystem.Ink
 public interface IInkArea
 {
     void  CreateInkArea(List<Vector2> points, IInkEffect effect,Material material);
+    
+    IInkEffect GetInkEffect(Action onEffectEnd);
 }
 /// <summary> インクエリアのオブジェクトにつけられる </summary>
 public class InkArea : MonoBehaviour, IInkArea
@@ -16,6 +21,16 @@ public class InkArea : MonoBehaviour, IInkArea
     [SerializeField] MeshCollider meshCollider;
     
     const float InkAreaActiveTime = 10f;
+    
+    Action _onEffectEnd = () => { };
+    
+    IInkEffect  _inkEffect;
+    public IInkEffect GetInkEffect(Action onEffectEnd)
+    {
+        _onEffectEnd += onEffectEnd;
+        return _inkEffect;
+    }
+    
     
     Mesh _mesh;
 
@@ -33,10 +48,11 @@ public class InkArea : MonoBehaviour, IInkArea
         meshCollider.sharedMesh = _mesh;
         meshRenderer.material = material;
         
+        _inkEffect = effect;
+        
         DestroyInkArea().Forget();
     }
-
-    public string MaterialName { get; }
+    
 
     async UniTask DestroyInkArea()
     {
@@ -44,7 +60,11 @@ public class InkArea : MonoBehaviour, IInkArea
         //todo エフェクト
         Destroy(gameObject);
     }
-    
+
+    void OnDestroy()
+    {
+        _onEffectEnd?.Invoke();
+    }
 }
 }
   
