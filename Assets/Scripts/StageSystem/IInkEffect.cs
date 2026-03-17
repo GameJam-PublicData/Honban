@@ -5,6 +5,8 @@ namespace StageSystem
 public interface IInkEffect
 {
     //どうする？
-    //
+    void UpdateInkArea();
+    void StartInkArea();
+    void StopInkArea();
 }
 }
