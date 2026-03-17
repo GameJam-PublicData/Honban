@@ -23,7 +23,7 @@ namespace StageSystem.Area
         
         public bool IsCrossing(Vector2 worldPos, out List<Vector2> points)
         {
-            points = null;
+            points = _points;
             // 直前で記録したポイントとの距離を計算しmin値以上か判別
             if (DistanceCheck(worldPos)) return false;
 
