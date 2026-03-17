@@ -82,35 +82,38 @@ public class PlayerJump : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (gravity.y == 1)
-        {
-            _rigidbody.gravityScale = 1;
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
-        else
-        {
-            _rigidbody.gravityScale = -1;
-            transform.localRotation = Quaternion.Euler(0, 0, 180);
-        }
+        gravity = new Vector2(0, _rigidbody.gravityScale);
 
         CheckGround();
     }
-
-
+    
+    
     void CheckGround()
     {
         Bounds bounds = _collider.bounds;
-        Vector2 direction = -transform.up;
-        float halfHeight = Vector2.Dot(
-            bounds.extents,
-            new Vector2(Mathf.Abs(transform.up.x), Mathf.Abs(transform.up.y))
-        );
-        Vector2 origin = (Vector2)bounds.center - (Vector2)transform.up * halfHeight;
-
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction, groundCheckDistance, groundLayer);
+    
+        // 重力方向によってい角度を変える
+        float gravitySign = Mathf.Sign(_rigidbody.gravityScale);
+        if (gravitySign == 0f)
+        {
+            _isGround = false;
+            return;
+        }
+    
+        Vector2 rayDirection = gravitySign > 0f ? Vector2.down : Vector2.up;
+    
+        // AABB の中心から、レイ方向側の面まで移動した位置を始点にする
+        float halfExtentAlongRay =
+            Mathf.Abs(rayDirection.x) * bounds.extents.x +
+            Mathf.Abs(rayDirection.y) * bounds.extents.y;
+    
+        Vector2 origin = (Vector2)bounds.center + rayDirection * halfExtentAlongRay;
+    
+        RaycastHit2D hit = Physics2D.Raycast(origin, rayDirection, groundCheckDistance, groundLayer);
         _isGround = hit.collider != null;
-
-        Debug.DrawRay(origin, direction * groundCheckDistance, _isGround ? Color.green : Color.red);
+    
+        Debug.DrawRay(origin, rayDirection * groundCheckDistance, _isGround ? Color.green : Color.red);
     }
+    
 }
 }
