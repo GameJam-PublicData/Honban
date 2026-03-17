@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     InputActions _inputActions;
     InputAction _moveAction;
+    
     [SerializeField] float moveSpeed;
     private Rigidbody _rb;
 
@@ -17,7 +18,6 @@ public class PlayerController : MonoBehaviour
         _inputActions = new InputActions();
         _inputActions.Player.Enable();
         _moveAction = _inputActions.Player.Move;
-        
     }
 
     void Update()
