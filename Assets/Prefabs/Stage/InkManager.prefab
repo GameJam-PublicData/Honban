@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4002406578896618196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc1759bd0e0040aea458767aefdcfb21, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e63616aae66e44e5a969ce52c0a0d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkManager
   inkAreaPrefab: {fileID: 8365833136900873199, guid: 612c661acdbe4446dbd862cbb466057d, type: 3}

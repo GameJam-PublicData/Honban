@@ -27,7 +27,7 @@ public class InkArea : MonoBehaviour, IInkArea
         _mesh = InkAreaMeshFactory.Create(points.ToArray());
         meshFilter.mesh = _mesh;
         
-        DestroyInkArea().Forget();
+        //DestroyInkArea().Forget();
     }
 
     async UniTask DestroyInkArea()

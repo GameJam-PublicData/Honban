@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using InputSystemActions;
+using StageSystem.Ink;
 using VContainer;
 
 namespace StageSystem.Area
@@ -14,21 +15,20 @@ namespace StageSystem.Area
         IStrokeBuilder _strokeBuilder;
         InputActions _inputActions;
         CancellationTokenSource _drawingCts;
+        IInkManager _inkManager;
 
         void Start()
         {
-            var strokeBuilder = new StrokeBuilder();
-            _strokeBuilder = strokeBuilder;
-            
             _strokeBuilder.Health();
             _mainCamera = Camera.main;
         }
         
-        /*[Inject]
-        public void Construct(IStrokeBuilder strokeBuilder)
+        [Inject]
+        public void Construct(IStrokeBuilder strokeBuilder,IInkManager inkManager)
         {
             _strokeBuilder = strokeBuilder;
-        }*/
+            _inkManager = inkManager;
+        }
 
         void OnEnable()
         {
@@ -85,9 +85,11 @@ namespace StageSystem.Area
                 var worldPos = (Vector2)_mainCamera.ScreenToWorldPoint(
                     new Vector3(screenPos.x, screenPos.y, Mathf.Abs(_mainCamera.transform.position.z)));
 
-                if (_strokeBuilder.IsCrossing(worldPos, OnCrossed))
+                if (_strokeBuilder.IsCrossing(worldPos, out var points))
                 {
                     Debug.Log("交差が確認されました");
+                    OnCrossed(points);
+                    _inkManager.CreateInkArea(points);
                     break;
                 }
 
