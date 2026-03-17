@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using InputSystemActions;
 using R3;
+using StageSystem.Ink;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
