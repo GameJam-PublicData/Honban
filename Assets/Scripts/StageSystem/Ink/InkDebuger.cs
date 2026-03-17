@@ -4,30 +4,37 @@ namespace StageSystem.Ink
 {
 public class InkDebuger : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    Rigidbody2D _rigidbody;
+    
+    void Start()
     {
-        var inkArea = collision.gameObject.GetComponent<IInkEffect>();
-        if (inkArea != null)
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        var inkEffect = other.GetComponent<IInkEffect>();
+        if (inkEffect != null)
         {
-            inkArea.StartInkArea(collision.rigidbody);
+            inkEffect.StartInkArea(_rigidbody);
+        }
+
+    }
+    
+    void OnTriggerStay2D(Collider2D other)
+    {
+        var inkEffect = other.GetComponent<IInkEffect>();
+        if (inkEffect != null)
+        {
+            inkEffect.UpdateInkArea(_rigidbody);
         }
     }
     
-    void OnCollisionStay2D(Collision2D collision)
+    void OnTriggerExit2D(Collider2D other)
     {
-        var inkArea = collision.gameObject.GetComponent<IInkEffect>();
-        if (inkArea != null)
+        var inkEffect = other.GetComponent<IInkEffect>();
+        if (inkEffect != null)
         {
-            inkArea.UpdateInkArea(collision.rigidbody);
-        }
-    }
-    
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        var inkArea = collision.gameObject.GetComponent<IInkEffect>();
-        if (inkArea != null)
-        {
-            inkArea.StopInkArea(collision.rigidbody);
+            inkEffect.StopInkArea(_rigidbody);
         }
     }
 }
