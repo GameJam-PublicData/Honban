@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace StageSystem
+namespace StageSystem.Ink
 {
 public interface IInkArea
 {
@@ -12,6 +12,9 @@ public interface IInkArea
 public class InkArea : MonoBehaviour, IInkArea
 {
     [SerializeField] MeshFilter meshFilter;
+    
+    const float InkAreaActiveTime = 10f;
+    
     Mesh _mesh;
 
     void Reset()
@@ -21,9 +24,17 @@ public class InkArea : MonoBehaviour, IInkArea
 
     public void CreateInkArea(List<Vector2> points, IInkEffect effect)
     {
-        _mesh = new Mesh();
-        //pointsに沿った形のMeshを作る
+        _mesh = InkAreaMeshFactory.Create(points.ToArray());
+        meshFilter.mesh = _mesh;
         
+        DestroyInkArea().Forget();
+    }
+
+    async UniTask DestroyInkArea()
+    {
+        await UniTask.Delay((int)(InkAreaActiveTime * 1000));
+        //todo エフェクト
+        Destroy(gameObject);
     }
 }
 }
