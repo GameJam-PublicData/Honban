@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using MainSystem.Audio;
 using MainSystem.DI.Installer;
 using MainSystem.Scene;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -10,6 +11,7 @@ namespace MainSystem.DI
 {
 public class StageLifeTimeScope : LifetimeScope
 {
+    [SerializeField] GameObject inkEffectPrefab;
     protected override void Configure(IContainerBuilder builder)
     {
         // StageSceneに特化した依存関係の登録をここに追加
@@ -20,7 +22,8 @@ public class StageLifeTimeScope : LifetimeScope
     {
         SceneInitialization().Forget();
     }
-
+    
+    
     // StageSceneの初期化処理をここに追加
     async UniTask SceneInitialization()
     {
