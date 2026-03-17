@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using StageSystem.Ink;
 using UnityEngine;
 using VContainer;
 
-namespace StageSystem
+namespace StageSystem.Ink
 {
 /// <summary>
 /// プレイヤーが円を描いたらインクエリアを生成するクラス

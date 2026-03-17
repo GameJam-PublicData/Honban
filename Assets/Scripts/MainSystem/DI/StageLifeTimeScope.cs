@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 using MainSystem.Audio;
 using MainSystem.DI.Installer;
 using MainSystem.Scene;
+using StageSystem;
+using StageSystem.Ink;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -16,6 +18,7 @@ public class StageLifeTimeScope : LifetimeScope
     {
         // StageSceneに特化した依存関係の登録をここに追加
         builder.RegisterComponentInHierarchy<IAudioManager>();
+        builder.RegisterComponentInHierarchy<InkStageSelectManager>().As<ICurrentInkEffect>();
     }
 
     void Start()

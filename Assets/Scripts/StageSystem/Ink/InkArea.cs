@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using StageSystem.Ink;
 using UnityEngine;
 
-namespace StageSystem
+namespace StageSystem.Ink
 {
 public interface IInkArea
 {
