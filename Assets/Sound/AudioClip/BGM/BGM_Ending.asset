@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 365a4c8707714b5087f50e31e6cce208, type: 3}
-  m_Name: BGM_Title
+  m_Name: BGM_Ending
   m_EditorClassIdentifier: Assembly-CSharp::MainSystem.Audio.SoundData
   category: 1
-  soundName: BGM_Title
-  clip: {fileID: 8300000, guid: f926e86170ed34ca7a68fd603304b537, type: 3}
+  soundName: BGM_Ending
+  clip: {fileID: 8300000, guid: 5c987fa87961640b08cd3b0ace9c2a31, type: 3}
   volume: 1
   loop: 0
