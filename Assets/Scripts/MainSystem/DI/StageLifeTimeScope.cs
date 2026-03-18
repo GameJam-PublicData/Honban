@@ -17,6 +17,7 @@ public class StageLifeTimeScope : LifetimeScope
         builder.RegisterComponentInHierarchy<InkSelectManager>().As<ICurrentInkEffect>();
         builder.RegisterComponentInHierarchy<InkManager>().As<IInkManager>();
         builder.Register<IStrokeBuilder,StrokeBuilder>(Lifetime.Scoped);
+        builder.RegisterComponentInHierarchy<InkAmount>().As<IInkAmount>();
     }
 
     void Start()

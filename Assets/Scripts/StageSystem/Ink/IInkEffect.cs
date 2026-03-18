@@ -8,8 +8,8 @@ namespace StageSystem.Ink
 public interface IInkEffect
 {
     //どうする？
-    void UpdateInkArea(Rigidbody2D rigidbody);
-    void StartInkArea(Rigidbody2D  rigidbody);
+    void UpdateInkArea(Rigidbody2D body);
+    void StartInkArea(Rigidbody2D  body);
     void StopInkArea(Rigidbody2D rigidbody);
     
 

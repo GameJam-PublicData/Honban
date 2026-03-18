@@ -10,7 +10,20 @@ namespace StageSystem.Player
         InputAction _moveAction;
     
         [SerializeField] float moveSpeed;
+        [SerializeField] private Vector2 speedUpMultiplier;
         private Rigidbody2D _rb;
+
+        public Vector2 SpeedUpMultiplier => speedUpMultiplier;
+
+        public void MultiplySpeedUpMultiplier(float multiplier)
+        {
+            speedUpMultiplier *= Mathf.Max(0f, multiplier);
+        }
+
+        public void RestoreSpeedUpMultiplier(Vector2 originalMultiplier)
+        {
+            speedUpMultiplier = originalMultiplier;
+        }
 
 
         void Start()
@@ -23,12 +36,11 @@ namespace StageSystem.Player
 
         void Update()
         {
-            Vector3 moveValue = _moveAction.ReadValue<Vector2>();
-            moveValue = new Vector3(moveValue.x, 0, moveValue.y);
+            Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+            Vector2 scaledInput = Vector2.Scale(moveInput, speedUpMultiplier);
+            Vector2 moveDirection = transform.right * scaledInput.x + transform.up * scaledInput.y;
 
-
-            Vector3 moveDirection = transform.TransformDirection(moveValue);
-            _rb.MovePosition(transform.position + moveDirection * (moveSpeed * Time.deltaTime));
+            _rb.MovePosition(_rb.position + moveDirection * (moveSpeed * Time.deltaTime));
         }
 
         private void OnDestroy()
