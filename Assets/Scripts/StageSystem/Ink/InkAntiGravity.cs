@@ -19,7 +19,7 @@ public class InkAntiGravity : MonoBehaviour, IInkEffect
 
     public void StartInkArea(Rigidbody2D rigidbody)
     {
-        
+        //俺は磯貝。全員嫌いだす
     }
 
     public void StopInkArea(Rigidbody2D rigidbody)

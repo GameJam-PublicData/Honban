@@ -10,8 +10,8 @@ namespace StageSystem.Player
         InputAction _moveAction;
     
         [SerializeField] float moveSpeed;
-        [SerializeField] private Vector2 speedUpMultiplier;
-        private Rigidbody2D _rb;
+        [SerializeField] Vector2 speedUpMultiplier;
+        Rigidbody2D _rb;
 
         public Vector2 SpeedUpMultiplier => speedUpMultiplier;
 
@@ -43,7 +43,7 @@ namespace StageSystem.Player
             _rb.MovePosition(_rb.position + moveDirection * (moveSpeed * Time.deltaTime));
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             _inputActions.Player.Disable();
         }
