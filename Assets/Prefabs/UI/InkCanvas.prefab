@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 4754515125700927194}
   - component: {fileID: 960736824835600519}
   - component: {fileID: 6081300852252445823}
+  - component: {fileID: 1059344897341057008}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -659,6 +660,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1059344897341057008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7787693773091305496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70848f7c209641d69a6767c10f75301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenu.UIAnimator
+  animationFrameRate: 0.12
+  animationFrames:
+  - {fileID: 21300000, guid: 993d0cf3f0e8a46e290a181701790ef1, type: 3}
+  - {fileID: 21300000, guid: dfed2c5d70e53444ea3f49b016745331, type: 3}
+  - {fileID: 21300000, guid: 17dceabfae2db44a5abb7c6494211750, type: 3}
+  - {fileID: 21300000, guid: f5d7a172e82484847bafc3839ff69e87, type: 3}
+  - {fileID: 21300000, guid: f3fb0c287f21c4540b1667f9a01d67fc, type: 3}
+  - {fileID: 21300000, guid: 9bbafb5dbceb046dc91ae9deaf34db0f, type: 3}
 --- !u!1 &7866945685513008477
 GameObject:
   m_ObjectHideFlags: 0

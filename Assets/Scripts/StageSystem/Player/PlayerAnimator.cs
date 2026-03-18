@@ -149,7 +149,7 @@ public class PlayerAnimator : MonoBehaviour
     
     async UniTask Animate()
     {
-        while (destroyCancellationToken.IsCancellationRequested)
+        while (destroyCancellationToken.IsCancellationRequested == false)
         {
             await UniTask.WaitUntil(() => AnimationActive, cancellationToken: destroyCancellationToken);
             await UniTask.Delay(TimeSpan.FromSeconds(animationFrameRate),cancellationToken: destroyCancellationToken);
