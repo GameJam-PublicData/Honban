@@ -1154,13 +1154,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1980994608}
     m_Modifications:
+    - target: {fileID: 919051291658710892, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919051291658710892, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919051291658710892, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3007414114872192265, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
       propertyPath: m_Name
       value: LicenseViewer
       objectReference: {fileID: 0}
     - target: {fileID: 3007414114872192265, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6241052597656381755, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
       propertyPath: m_Pivot.x
@@ -1247,9 +1259,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
     - target: {fileID: 6560363289298529273, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560363289298529273, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560363289298529273, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560363289298529273, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -3542825536118788606, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
+    - target: {fileID: 6560363289298529273, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6560363289298529273, guid: 3cba8c0f5bbd34bae8d5c53801422498, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
