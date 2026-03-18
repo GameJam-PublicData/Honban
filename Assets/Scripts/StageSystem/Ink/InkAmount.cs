@@ -19,9 +19,14 @@ public class InkAmount : MonoBehaviour,IInkAmount
     public float Ink { get; private set; } = 100;
     public bool IsInkAvailable() => Ink > 0;
 
+    Vector2 _mousePos = Vector2.zero;
+    
     void Update()
     {
-        if (_isHolding && Ink > 0)
+        bool isMouseMove = _mousePos != Mouse.current.position.ReadValue();
+        _mousePos  = Mouse.current.position.ReadValue();
+        
+        if (_isHolding && Ink > 0 && isMouseMove)
         {
             Ink -= inkUsage * Time.deltaTime;
             if(Ink < 0) Ink = 0;
@@ -32,24 +37,25 @@ public class InkAmount : MonoBehaviour,IInkAmount
     {
         _inputActions = new InputActions();
         _inputActions.Player.Enable();
-        _inputActions.Player.Attack.performed += OnClick;
+        _inputActions.Player.Attack.started += OnClickStart;
+        _inputActions.Player.Attack.canceled += OnClickEnd;
     }
 
-    public void OnClick(InputAction.CallbackContext context)
+    void OnClickStart(InputAction.CallbackContext context)
+    { 
+        _isHolding = true;
+    }
+
+    void OnClickEnd(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            _isHolding = true;
-        }
-        else if (context.canceled)
-        {
-            _isHolding = false;
-        }
+        _isHolding = false;
+        Debug.LogError("canceled");
     }
 
     void OnDisable()
     {
-        _inputActions.Player.Attack.performed -= OnClick;
+        _inputActions.Player.Attack.started -= OnClickStart;
+        _inputActions.Player.Attack.canceled -= OnClickEnd;
         _inputActions.Disable();
     }
 }

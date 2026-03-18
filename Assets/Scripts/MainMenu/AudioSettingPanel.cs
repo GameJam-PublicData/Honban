@@ -30,7 +30,11 @@ public class AudioSettingPanel : MonoBehaviour
         bgmSlider.onValueChanged.AddListener(OnBGMVolumeChanged);
         seSlider.onValueChanged.AddListener(OnSEVolumeChanged);
         
-        closeButton.onClick.AddListener(() => gameObject.SetActive(false));
+        closeButton.onClick.AddListener(() =>
+        {
+            _audioManager.PlaySE("ButtonPushSound");
+            gameObject.SetActive(false);
+        });
     }
     
     void OnMasterVolumeChanged(float value)

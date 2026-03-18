@@ -72,4 +72,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79386803025724c9d981778661640726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkAmount
-  inkUsage: 2
+  inkUsage: 33
