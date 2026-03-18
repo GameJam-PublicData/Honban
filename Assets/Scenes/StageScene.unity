@@ -386,6 +386,46 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2676589584753136988, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2676589584753136988, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507138165516250631, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507138165516250631, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045106047279381732, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045106047279381732, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081300852252445823, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 993d0cf3f0e8a46e290a181701790ef1, type: 3}
+    - target: {fileID: 6081300852252445823, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081300852252445823, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081300852252445823, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6520313959918258713, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
       propertyPath: m_Pivot.x
       value: 0
