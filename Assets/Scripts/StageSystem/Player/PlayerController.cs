@@ -1,3 +1,4 @@
+using System;
 using InputSystemActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,8 +12,11 @@ namespace StageSystem.Player
     
         [SerializeField] float moveSpeed;
         [SerializeField] private Vector2 speedUpMultiplier;
+        [SerializeField] GameObject playerSprite;
+        
         private Rigidbody2D _rb;
-
+        PlayerAnimator _animator;
+        
         public Vector2 SpeedUpMultiplier => speedUpMultiplier;
 
         public void MultiplySpeedUpMultiplier(float multiplier)
@@ -29,6 +33,7 @@ namespace StageSystem.Player
         void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<PlayerAnimator>();
             _inputActions = new InputActions();
             _inputActions.Player.Enable();
             _moveAction = _inputActions.Player.Move;
@@ -38,9 +43,28 @@ namespace StageSystem.Player
         {
             Vector2 moveInput = _moveAction.ReadValue<Vector2>();
            
+            if(moveInput != Vector2.zero)
+            {
+                _animator.WalkStart();
+            }
+            else
+            {
+                _animator.WalkEnd();
+            }
+            
+            //左に行くときは左向き　右の時は右向きにする
+            if (moveInput.x > 0)
+            {
+                playerSprite.transform.localScale = new Vector3(- MathF.Abs(playerSprite.transform.localScale.x), playerSprite.transform.localScale.y, 1f);
+            }
+            else if (moveInput.x < 0)
+            {
+                playerSprite.transform.localScale = new Vector3(MathF.Abs(playerSprite.transform.localScale.x), playerSprite.transform.localScale.y, 1f);
+            }
+            
             Vector2 scaledInput = Vector2.Scale(moveInput, speedUpMultiplier);
             Vector2 moveDirection = transform.right * scaledInput.x + transform.up * scaledInput.y;
-
+            
             Vector2 moveVector = _rb.linearVelocity;
             moveVector.x = moveDirection.x * moveSpeed;
             _rb.linearVelocity = moveVector;

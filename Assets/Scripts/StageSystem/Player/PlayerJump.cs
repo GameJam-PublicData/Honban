@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using InputSystemActions;
+using StageSystem.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -15,6 +16,8 @@ public class PlayerJump : MonoBehaviour
 
     Rigidbody2D _rigidbody;
     Collider2D _collider;
+
+    PlayerAnimator _playerAnimator;
 
     [FormerlySerializedAs("_jumpForce")] [SerializeField]
     float jumpForce = 200;
@@ -57,12 +60,19 @@ public class PlayerJump : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     void OnJumpStart()
     {
         if (!_isGround) return;
         _rigidbody.AddForce(gravity * jumpForce);
+        
+        //アニメーション
+        if (_playerAnimator != null)
+        {
+            _playerAnimator.JumpStart();
+        }
     }
 
     float _jumpCancelVelocityThreshold = 0.25f;
@@ -91,6 +101,8 @@ public class PlayerJump : MonoBehaviour
     void CheckGround()
     {
         Bounds bounds = _collider.bounds;
+
+        bool isGrounded = _isGround;
     
         // 重力方向によってい角度を変える
         float gravitySign = Mathf.Sign(_rigidbody.gravityScale);
@@ -113,6 +125,19 @@ public class PlayerJump : MonoBehaviour
         _isGround = hit.collider != null;
     
         Debug.DrawRay(origin, rayDirection * groundCheckDistance, _isGround ? Color.green : Color.red);
+        
+        //アニメーション
+        if (_playerAnimator != null)
+        {
+            if (!_isGround)
+            {
+                _playerAnimator.Falling();
+            }
+            else if(_isGround != isGrounded)
+            {
+                _playerAnimator.FallEnd();
+            }
+        }
     }
     
 }
