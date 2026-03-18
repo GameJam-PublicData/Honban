@@ -1,9 +1,8 @@
-using System;
 using Cysharp.Threading.Tasks;
 using MainSystem.Audio;
-using MainSystem.DI.Installer;
 using MainSystem.Scene;
-using UnityEngine;
+using StageSystem.Area;
+using StageSystem.Ink;
 using VContainer;
 using VContainer.Unity;
 
@@ -11,11 +10,14 @@ namespace MainSystem.DI
 {
 public class StageLifeTimeScope : LifetimeScope
 {
-    [SerializeField] GameObject inkEffectPrefab;
     protected override void Configure(IContainerBuilder builder)
     {
         // StageSceneに特化した依存関係の登録をここに追加
         builder.RegisterComponentInHierarchy<IAudioManager>();
+        builder.RegisterComponentInHierarchy<InkSelectManager>().As<ICurrentInkEffect>();
+        builder.RegisterComponentInHierarchy<InkManager>().As<IInkManager>();
+        builder.Register<IStrokeBuilder,StrokeBuilder>(Lifetime.Scoped);
+        builder.RegisterComponentInHierarchy<InkAmount>().As<IInkAmount>();
     }
 
     void Start()

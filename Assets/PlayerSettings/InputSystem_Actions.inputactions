@@ -34,12 +34,21 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "NextInk",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BackInk",
+                    "type": "Button",
+                    "id": "5a0e3460-e582-415d-a174-6b171acf1213",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -64,7 +73,7 @@
                     "name": "Previous",
                     "type": "Button",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -82,7 +91,7 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -437,7 +446,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Interact",
+                    "action": "NextInk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -448,7 +457,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Interact",
+                    "action": "NextInk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -471,6 +480,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "456ed6ee-aac9-4d63-a2a3-bf401291d8d8",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackInk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
