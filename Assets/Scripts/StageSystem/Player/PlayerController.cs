@@ -1,4 +1,6 @@
 using InputSystemActions;
+using R3;
+using StageSystem.Ink.Inks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,10 +10,10 @@ namespace StageSystem.Player
     {
         InputActions _inputActions;
         InputAction _moveAction;
-    
-        [SerializeField] float moveSpeed;
-        [SerializeField] private Vector2 speedUpMultiplier;
-        private Rigidbody2D _rb;
+
+        [SerializeField] float moveSpeed = 3f;
+        [SerializeField] Vector2 speedUpMultiplier = Vector2.one;
+        Rigidbody2D _rb;
 
         public Vector2 SpeedUpMultiplier => speedUpMultiplier;
 
@@ -36,11 +38,22 @@ namespace StageSystem.Player
             _inputActions = new InputActions();
             _inputActions.Player.Enable();
             _moveAction = _inputActions.Player.Move;
+            
+            GetComponent<IPlayerEffect>().OnInkEffect.Subscribe(effectData =>
+            {
+                if (effectData.effect is NoGravityInkEffect)
+                {
+                    _isNoGravity = effectData.isIn;
+                }
+            }).AddTo(this);
+            
         }
+
+        bool _isNoGravity = false;
 
         void Update()
         {
-            //入力を受け取る
+            if(_isNoGravity) return;
             Vector2 moveInput = _moveAction.ReadValue<Vector2>();
            
             //スピードアップ倍率を考慮して移動方向を計算

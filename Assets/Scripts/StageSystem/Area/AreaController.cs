@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using InputSystemActions;
 using StageSystem.Ink;
-using StageSystem.UI.Mouse;
 using VContainer.Unity;
 
 namespace StageSystem.Area

@@ -2,8 +2,9 @@ using Cysharp.Threading.Tasks;
 using MainSystem.Audio;
 using MainSystem.Scene;
 using StageSystem.Area;
+using StageSystem.CheckPoint;
 using StageSystem.Ink;
-using StageSystem.UI.Mouse;
+using StageSystem.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -21,6 +22,8 @@ public class StageLifeTimeScope : LifetimeScope
         builder.RegisterComponentInHierarchy<InkAmount>().As<IInkAmount>();
         builder.RegisterComponentInHierarchy<ICursorTrail>();
         builder.Register<AreaController>(Lifetime.Scoped).AsImplementedInterfaces();
+        builder.RegisterComponentInHierarchy<ICheckPointManager>();
+        builder.RegisterComponentInHierarchy<IClearUIManager>();
     }
 
     void Start()
