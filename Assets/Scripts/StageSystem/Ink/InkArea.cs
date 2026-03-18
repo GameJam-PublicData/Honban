@@ -18,7 +18,7 @@ public class InkArea : MonoBehaviour, IInkArea
 {
     [SerializeField] MeshFilter meshFilter;
     [SerializeField] MeshRenderer meshRenderer;
-    [SerializeField] MeshCollider meshCollider;
+    [SerializeField] PolygonCollider2D polygonCollider2D;
     
     const float InkAreaActiveTime = 10f;
     
@@ -38,14 +38,14 @@ public class InkArea : MonoBehaviour, IInkArea
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
-        meshCollider = GetComponent<MeshCollider>();
+        polygonCollider2D = GetComponent<PolygonCollider2D>();
     }
 
     public void CreateInkArea(List<Vector2> points, IInkEffect effect,Material material)
     {
         _mesh = InkAreaMeshFactory.Create(points.ToArray());
         meshFilter.mesh = _mesh;
-        meshCollider.sharedMesh = _mesh;
+        polygonCollider2D.SetPath(0, points.ToArray());
         meshRenderer.material = material;
         
         _inkEffect = effect;

@@ -10,8 +10,7 @@ public class NoGravityInkEffect  : IInkEffect
     
     public void UpdateInkArea(Rigidbody2D rigidbody)
     {
-        Debug.Log("重力なしインクエリアの更新");
-        rigidbody.MovePosition(rigidbody.position + _originalVelocities[rigidbody] * Time.deltaTime);
+        rigidbody.linearVelocity = _originalVelocities[rigidbody];
     }
 
     public void StartInkArea(Rigidbody2D rigidbody)
