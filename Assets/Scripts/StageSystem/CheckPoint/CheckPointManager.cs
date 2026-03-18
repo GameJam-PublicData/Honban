@@ -13,16 +13,22 @@ public interface ICheckPointManager
     public UniTask MoveCheckPoint(Transform transform);
     
 }
-public class CheckPointManager  : MonoBehaviour, ICheckPointManager
+
+public class CheckPointManager : MonoBehaviour, ICheckPointManager
 {
-      List<ICheckPoint>  _checkPoints = new();
-      [SerializeField] CheckPointBlackOutManager blackOutManager;
+    List<ICheckPoint> _checkPoints = new();
+    [SerializeField] CheckPointBlackOutManager blackOutManager;
 
-      public ICheckPoint CurrentCheckPoint { get; private set; }
-      
-      
+    public ICheckPoint CurrentCheckPoint { get; private set; }
+    IActiveHandler  _activeHandler;
 
-      void Awake()
+    
+    public void Construct(IActiveHandler activeHandler)
+    {
+        _activeHandler = activeHandler;
+    } 
+
+void Awake()
       {
           _checkPoints.Clear();
           transform.GetChild(0).GetComponentsInChildren(true, _checkPoints);
@@ -42,10 +48,10 @@ public class CheckPointManager  : MonoBehaviour, ICheckPointManager
 
       public async UniTask MoveCheckPoint(Transform transform)
       {
-          transform.gameObject.GetComponent<Rigidbody2D>().simulated  = false;
+          _activeHandler.StopGame();
           await blackOutManager.Active();
           transform.position = CurrentCheckPoint.Transform.position;
-          transform.gameObject.GetComponent<Rigidbody2D>().simulated = true;
+          _activeHandler.ActiveGame();
       }
 }
 }
