@@ -57,6 +57,7 @@ public class PlayerEffect : MonoBehaviour ,IPlayerEffect
     {
         if (_currentEffects.TryGetValue(inkArea, out var effect))
         {
+            effect.StopInkArea(_rigidbody2D);
             _inkEffectSubject.OnNext((false,effect));
         }
         _currentEffects.Remove(inkArea);

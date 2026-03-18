@@ -6,7 +6,7 @@ namespace StageSystem.Ink.Inks
 public class AntiGravityInkEffect : IInkEffect
 {
     // TODO: MaterialNameが実装されていないため、仮で実装なので変更が加える必要があるなら変更してください。
-    string IInkEffect.MaterialName => "AntiGravity";
+    string IInkEffect.MaterialName => "AntiGravityMaterial";
     
     public void UpdateInkArea(Rigidbody2D rigidbody)
     {

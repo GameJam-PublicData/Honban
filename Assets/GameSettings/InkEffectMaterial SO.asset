@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkEffectMaterialSO
   materials:
   - {fileID: 2100000, guid: 52cd916b68357440296aa58d73463e2a, type: 2}
+  - {fileID: 2100000, guid: 84baf00acdc1a4d11ad5b9af0c391821, type: 2}
+  - {fileID: 2100000, guid: 2abc10c892f7e4d87bb5d6213d031417, type: 2}
