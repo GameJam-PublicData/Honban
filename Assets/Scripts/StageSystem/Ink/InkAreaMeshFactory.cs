@@ -23,12 +23,14 @@ public static class InkAreaMeshFactory
         mesh.name = "PolygonMesh";
         
         Vector3[] vertices = points.Select(p => new Vector3(p.x, p.y, 0f)).ToArray();
+        Vector2[] uvs = GenerateUVs(vertices);
 
         // Ear Clipping で三角形インデックスを生成
         int[] triangles = Triangulate(points);
         
         mesh.vertices  = vertices;
         mesh.triangles = triangles;
+        mesh.uv        = uvs;
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         return mesh;
@@ -119,6 +121,32 @@ public static class InkAreaMeshFactory
         bool hasNeg = d1 < 0 || d2 < 0 || d3 < 0;
         bool hasPos = d1 > 0 || d2 > 0 || d3 > 0;
         return !(hasNeg && hasPos);
+    }
+    static Vector2[] GenerateUVs(Vector3[] vertices)
+    {
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minY = float.MaxValue, maxY = float.MinValue;
+
+        foreach (var v in vertices)
+        {
+            minX = Mathf.Min(minX, v.x);
+            maxX = Mathf.Max(maxX, v.x);
+            minY = Mathf.Min(minY, v.y);
+            maxY = Mathf.Max(maxY, v.y);
+        }
+
+        float rangeX = maxX - minX;
+        float rangeY = maxY - minY;
+
+        Vector2[] uvs = new Vector2[vertices.Length];
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            uvs[i] = new Vector2(
+                (vertices[i].x - minX) / rangeX,
+                (vertices[i].y - minY) / rangeY
+            );
+        }
+        return uvs;
     }
 }
 }
