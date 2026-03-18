@@ -57,6 +57,7 @@ public class PlayerJump : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _defaultJumpForce = jumpForce;
     }
 
     void OnJumpStart()
@@ -102,7 +103,7 @@ public class PlayerJump : MonoBehaviour
     
         Vector2 rayDirection = gravitySign > 0f ? Vector2.down : Vector2.up;
     
-        // AABB の中心から、レイ方向側の面まで移動した位置を始点にする
+        //中心から、レイ方向側の面まで移動した位置を始点にする
         float halfExtentAlongRay =
             Mathf.Abs(rayDirection.x) * bounds.extents.x +
             Mathf.Abs(rayDirection.y) * bounds.extents.y;
@@ -113,6 +114,18 @@ public class PlayerJump : MonoBehaviour
         _isGround = hit.collider != null;
     
         Debug.DrawRay(origin, rayDirection * groundCheckDistance, _isGround ? Color.green : Color.red);
+    }
+    
+    float _defaultJumpForce;
+    
+    public void SetJumpPower(float power)
+    {
+        jumpForce = _defaultJumpForce * power;
+    }
+
+    public void InitJumpPower()
+    {
+        jumpForce = _defaultJumpForce;
     }
     
 }
