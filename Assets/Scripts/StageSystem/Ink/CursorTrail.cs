@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace StageSystem.UI.Mouse
 {
@@ -18,14 +19,11 @@ namespace StageSystem.UI.Mouse
         {
             _lineRenderer = GetComponent<LineRenderer>() ?? gameObject.AddComponent<LineRenderer>();
             
-            _lineRenderer.useWorldSpace = false;
-            _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            
-            _lineRenderer.widthMultiplier = 0.1f;
-            
             _mainCamera = Camera.main;
             if (_mainCamera == null)
                 Debug.LogError("Main Camera not found.");
+
+            Reset();
         }
         
         public void Draw(List<Vector2> points)
@@ -48,6 +46,21 @@ namespace StageSystem.UI.Mouse
         public void FadeOut()
         {
             var mat = _lineRenderer.material;
+            mat.DOColor(new Color(1, 1, 1, 0), "_Color", 0.5f).onComplete = Reset;
+        }
+
+        void Reset()
+        {
+            transform.position = Vector3.zero;
+            
+            _lineRenderer.useWorldSpace = false;
+            _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            
+            _lineRenderer.widthMultiplier = 0.1f;
+            _lineRenderer.positionCount = 0;
+            
+            var mat = _lineRenderer.material;
+            mat.color = new Color(1, 1, 1, 1);
         }
     }
 }

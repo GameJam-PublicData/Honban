@@ -55,8 +55,6 @@ namespace StageSystem.Area
 
         void OnAttackStarted(InputAction.CallbackContext ctx)
         {
-            CancelDrawing();
-            
             _drawingCts = new CancellationTokenSource();
             BeginDrawing(_drawingCts.Token).Forget();
         }
@@ -70,6 +68,8 @@ namespace StageSystem.Area
             _drawingCts?.Cancel();
             _drawingCts?.Dispose();
             _drawingCts = null;
+            
+            _cursorTrail.FadeOut();
         }
 
         async UniTaskVoid BeginDrawing(CancellationToken token)
@@ -97,6 +97,7 @@ namespace StageSystem.Area
                 {
                     Debug.Log("交差が確認されました");
                     OnCrossed(points);
+                    _cursorTrail.FadeOut();
                     _inkManager.CreateInkArea(points);
                     break;
                 }
