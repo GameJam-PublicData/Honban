@@ -1,17 +1,18 @@
 using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using StageSystem.Ink;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
+using R3;
 
 namespace StageSystem.UI
 {
-public interface IInkModeUI
+public class InkModeUI : MonoBehaviour
 {
-    void SwitchGravity(int index);
-}
-public class InkModeUI : MonoBehaviour, IInkModeUI
-{
+    ICurrentInkEffect currentInkEffect;
+    
     [Header("Ink Mode")]
     [SerializeField] Image antigravity;
     [SerializeField] Image lowGravity;
@@ -23,29 +24,42 @@ public class InkModeUI : MonoBehaviour, IInkModeUI
     [SerializeField] float height = 100f;
     [SerializeField] float duration = 0.5f;
 
-    void Start()
+    [Inject]
+    void Construct(ICurrentInkEffect currentInkEffect)
+    {
+        this.currentInkEffect = currentInkEffect;
+        Init();
+    }
+
+    void Init()
     {
         if (antigravity == null) Debug.LogWarning("antigravity is null");
         if (lowGravity == null) Debug.LogWarning("lowGravity is null");
+        
+        currentInkEffect.Get.Subscribe(inkEffect =>
+        {
+            SwitchGravity(inkEffect.MaterialName);
+        }).AddTo(this);
     }
 
-    public void SwitchGravity(int index)
+    void SwitchGravity(string materialName)
     {
         // 現在のモードアイコンを上から、次モードアイコンを下からカーブで移動させる
-        switch (index)
+        switch (materialName)
         {
-            case 0:
+            // TODO: materialNameが決まり次第設定
+            case "Antigravity":
                 // lowGravity -> antigravityへの切り替わり
                 MoveCurveUI(antigravity, curTargetPos, true);
                 MoveCurveUI(lowGravity, nextTargetPos, false);
                 break;
-            case 1:
+            case "Low Gravity":
                 // antigravity -> lowGravityへの切り替わり
                 MoveCurveUI(lowGravity, curTargetPos, true);
                 MoveCurveUI(antigravity, nextTargetPos, false);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(index), index, null);
+                throw new ArgumentOutOfRangeException(nameof(materialName), materialName, null);
         }
     }
     
@@ -77,7 +91,9 @@ public class InkModeUI : MonoBehaviour, IInkModeUI
             // 二次ベジェ曲線で位置を計算
             Vector2 pos = Mathf.Pow(1 - t, 2) * startPos + 2 * (1 - t) * t * controlPoint + Mathf.Pow(t, 2) * endPos;
             target.rectTransform.anchoredPosition = pos;
-        }, 1f, duration).SetEase(Ease.OutCubic).onComplete = () => target.DOFade(1f, 0.25f);
+        }, 1f, duration)
+            .SetEase(Ease.OutCubic)
+            .OnComplete(() => target.DOFade(1f, 0.25f));
     }
 }
 }
