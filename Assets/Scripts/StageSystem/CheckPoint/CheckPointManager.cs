@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using StageSystem.Player;
 using UnityEngine;
 
 namespace StageSystem.CheckPoint
@@ -8,21 +10,17 @@ public interface ICheckPointManager
 {
     public ICheckPoint CurrentCheckPoint { get; }
     public void ThroughCheckPoint(ICheckPoint checkPoint);
-    public void MoveCheckPoint(Transform transform);
+    public UniTask MoveCheckPoint(Transform transform);
     
 }
 public class CheckPointManager  : MonoBehaviour, ICheckPointManager
 {
       List<ICheckPoint>  _checkPoints = new();
+      [SerializeField] CheckPointBlackOutManager blackOutManager;
 
       public ICheckPoint CurrentCheckPoint { get; private set; }
       
       
-
-      void Reset()
-      {
-
-      }
 
       void Awake()
       {
@@ -42,9 +40,12 @@ public class CheckPointManager  : MonoBehaviour, ICheckPointManager
           CurrentCheckPoint = checkPoint;
       }
 
-      public void MoveCheckPoint(Transform transform)
+      public async UniTask MoveCheckPoint(Transform transform)
       {
+          transform.gameObject.GetComponent<Rigidbody2D>().simulated  = false;
+          await blackOutManager.Active();
           transform.position = CurrentCheckPoint.Transform.position;
+          transform.gameObject.GetComponent<Rigidbody2D>().simulated = true;
       }
 }
 }

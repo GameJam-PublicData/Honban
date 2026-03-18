@@ -1,27 +1,43 @@
+using StageSystem.CheckPoint;
+using StageSystem.UI;
 using UnityEngine;
+using VContainer;
 
 namespace StageSystem.Player
 {
-    public class PlayerHpManager : MonoBehaviour,IPlayerHP
+public class PlayerHpManager : MonoBehaviour, IPlayerHP
+{
+    ICheckPointManager  _checkPointManager;
+    IClearUIManager  _clearUIManager;
+    [SerializeField] int hp = 10;//残機
+
+    [Inject]
+    public void Construct(ICheckPointManager  checkPointManager,IClearUIManager  clearUIManager)
+    { 
+        _checkPointManager = checkPointManager;
+        _clearUIManager = clearUIManager;
+    }
+     
+    public void TakeDamage(int damage)
     {
-        [SerializeField] int damage;
-        [SerializeField] int hp;
-        IPlayerDamage _playerHpImplementation;
-        
-        public void TakeDamage(int damage)
+        hp -= damage;
+        if(hp <= 0)
         {
-            hp -= damage;
+            Debug.Log("ゲームオーバー");
+            _clearUIManager.Initialize(false, gameObject);
+            return;
         }
-
-        public void Heal(int heal)
-        {
-            hp += heal;
-        }
-
-        public void SetHP(int hp)
-        {
-            this.hp = hp;
-        }
+        _checkPointManager.MoveCheckPoint(transform);
     }
 
+    public void Heal(int heal)
+    {
+        hp += heal;
+    }
+
+    public void SetHP(int hp)
+    {
+        this.hp = hp;
+    }
+}
 }
