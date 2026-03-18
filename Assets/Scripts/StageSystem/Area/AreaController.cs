@@ -12,8 +12,8 @@ using VContainer.Unity;
 namespace StageSystem.Area
 {
     public class AreaController : IPostStartable, IDisposable
-    {
-        Camera _mainCamera;
+    { 
+        UnityEngine.Camera _mainCamera;
         IStrokeBuilder _strokeBuilder;
         InputActions _inputActions;
         CancellationTokenSource _drawingCts;
@@ -33,7 +33,7 @@ namespace StageSystem.Area
         {
             Debug.Log("Initialize");
             
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
             
             _inputActions = new InputActions();
             _inputActions.Enable();
@@ -77,7 +77,7 @@ namespace StageSystem.Area
             Debug.Log("BeginDrawing");
             
             _strokeBuilder.Clear();
-            if (Camera.main == null)
+            if (UnityEngine.Camera.main == null)
             {
                 Debug.LogError("Camera not found");
                 return;
