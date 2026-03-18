@@ -5,13 +5,8 @@ public class ClearUI : MonoBehaviour
 {
     [SerializeField] GameObject clearUI;
 
-    void Start()
-    {
-        clearUI.SetActive(false);
-    }
 
-
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Goal"))
         {
