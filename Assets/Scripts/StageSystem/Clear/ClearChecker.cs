@@ -2,22 +2,24 @@ using System;
 using StageSystem.Player;
 using StageSystem.UI;
 using UnityEngine;
+using VContainer;
 
 namespace StageSystem.Clear
 {
 public class ClearChecker : MonoBehaviour
 {
-    [SerializeField] ClearUIManager  clearUIManager;
+    [Inject]
+    public void Construct(IClearUIManager clearUIManager)
+    {
+        _clearUIManager = clearUIManager;
+    }
+    IClearUIManager _clearUIManager;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("クリア");
-            clearUIManager.Initialize();
-            other.GetComponent<PlayerJump>().enabled = false;
-            other.GetComponent<PlayerController>().enabled = false;
-            other.GetComponent<Rigidbody2D>().simulated = false;
-            
+            _clearUIManager.Initialize(true, other.gameObject);
         }
     }
 }

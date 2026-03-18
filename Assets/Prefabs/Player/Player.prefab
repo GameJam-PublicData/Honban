@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8047290132617018212}
   - component: {fileID: 7893106500613999556}
   - component: {fileID: 1694412059499671939}
+  - component: {fileID: 3896138605598927855}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -145,6 +146,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b229232cf819421f9cd16c0b1b4ad38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerEffect
+--- !u!114 &3896138605598927855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482725560385638947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66648a4ccdb9f43e3be5e8f32e681bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerHpManager
+  hp: 10
 --- !u!1 &8117824892345895430
 GameObject:
   m_ObjectHideFlags: 0
