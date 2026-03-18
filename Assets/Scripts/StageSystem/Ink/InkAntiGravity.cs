@@ -5,8 +5,11 @@ using DG.Tweening;
 
 namespace StageSystem.Ink
 {
-public class InkAntiGravity : MonoBehaviour,IInkEffect
+public class InkAntiGravity : MonoBehaviour, IInkEffect
 {
+    // TODO: MaterialNameが実装されていないため、仮で実装なので変更が加える必要があるなら変更してください。
+    string IInkEffect.MaterialName => "AntiGravity";
+    
     public void UpdateInkArea(Rigidbody2D rigidbody)
     {
         rigidbody.gravityScale = -1;

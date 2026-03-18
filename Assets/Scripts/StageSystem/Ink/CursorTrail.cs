@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Profiling;
 
 namespace StageSystem.UI.Mouse
 {
@@ -14,10 +15,22 @@ namespace StageSystem.UI.Mouse
     {
         LineRenderer _lineRenderer;
         Camera _mainCamera;
+        Material _lineMaterial;
 
         void Awake()
         {
             _lineRenderer = GetComponent<LineRenderer>() ?? gameObject.AddComponent<LineRenderer>();
+            
+            var shader = Shader.Find("Sprites/Default");
+            if (shader != null)
+            {
+                _lineMaterial = new Material(shader);
+                _lineRenderer.material = _lineMaterial;
+            }
+            else
+            {
+                Debug.LogWarning("Shader 'Sprites/Default' not found.");
+            }
             
             _mainCamera = Camera.main;
             if (_mainCamera == null)
@@ -54,13 +67,14 @@ namespace StageSystem.UI.Mouse
             transform.position = Vector3.zero;
             
             _lineRenderer.useWorldSpace = false;
-            _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            if (_lineMaterial != null)
+            {
+                _lineRenderer.material = _lineMaterial;
+                _lineMaterial.color = Color.white;
+            }
             
             _lineRenderer.widthMultiplier = 0.1f;
             _lineRenderer.positionCount = 0;
-            
-            var mat = _lineRenderer.material;
-            mat.color = new Color(1, 1, 1, 1);
         }
     }
 }
