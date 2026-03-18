@@ -1,4 +1,5 @@
 using InputSystemActions;
+using MainSystem.Audio;
 using StageSystem.Ink;
 using StageSystem.Player;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class PlayerJump : MonoBehaviour
     InputAction _jumpAction;
     
     IInkAmount _inkAmount;
+    IAudioManager _audioManager;
 
     Rigidbody2D _rigidbody;
     Collider2D _collider;
@@ -33,9 +35,10 @@ public class PlayerJump : MonoBehaviour
     
 
     [Inject]
-    void Construct(IInkAmount inkAmount)
+    void Construct(IInkAmount inkAmount, IAudioManager audioManager)
     {
         _inkAmount = inkAmount;
+        _audioManager = audioManager;
     }
 
     void OnEnable()
@@ -72,6 +75,8 @@ public class PlayerJump : MonoBehaviour
     {
         if (!_isGround) return;
         _rigidbody.AddForce(gravity * jumpForce);
+        
+        _audioManager.PlaySE("JumpSound");
         
         //アニメーション
         if (_playerAnimator != null)
