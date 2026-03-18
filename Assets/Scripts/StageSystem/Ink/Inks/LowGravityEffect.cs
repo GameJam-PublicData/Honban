@@ -10,7 +10,7 @@ namespace StageSystem.Ink.Inks
         float _gravityDownMultiplier = 0.35f;
         
         public string MaterialName => "SpeedUpInkMaterial";
-        public float EffectUsageRate => 1;
+        public float EffectUsageRate => .2f;
         
         public void UpdateInkArea(Rigidbody2D body)
         {
