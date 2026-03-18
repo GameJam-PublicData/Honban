@@ -76,13 +76,29 @@ namespace StageSystem.Player
             {
                 if (moveInput.x > 0)
                 {
-                    playerSprite.transform.localScale = new Vector3(-MathF.Abs(playerSprite.transform.localScale.x),
+                    Vector3 scale = new Vector3(
+                        -Mathf.Abs(playerSprite.transform.localScale.x), 
                         playerSprite.transform.localScale.y, 1f);
+
+                    if (_rb.gravityScale < 0f)
+                    {
+                        scale.x *= -1;
+                    }
+                    
+                    playerSprite.transform.localScale = scale;
                 }
                 else if (moveInput.x < 0)
                 {
-                    playerSprite.transform.localScale = new Vector3(MathF.Abs(playerSprite.transform.localScale.x),
+                    Vector3 scale = new Vector3(
+                        Mathf.Abs(playerSprite.transform.localScale.x), 
                         playerSprite.transform.localScale.y, 1f);
+
+                    if (_rb.gravityScale < 0f)
+                    {
+                        scale.x *= -1;
+                    }
+                    
+                    playerSprite.transform.localScale = scale;
                 }
             }
 
