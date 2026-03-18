@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Profiling;
+using UnityEngine;
 
-namespace StageSystem.UI.Mouse
+namespace StageSystem.Ink
 {
     public interface ICursorTrail
     {

@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using InputSystemActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-namespace StageSystem
+namespace StageSystem.Player
 {
 public class PlayerJump : MonoBehaviour
 {
     InputActions _inputActions;
-
     InputAction _jumpAction;
 
     Rigidbody2D _rigidbody;
@@ -26,8 +23,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] float groundCheckDistance = 0.1f;
 
     bool _isGround;
-
-    //Vector2 _gravity;
+    
 
 
     void OnEnable()
@@ -37,16 +33,16 @@ public class PlayerJump : MonoBehaviour
         _jumpAction = _inputActions.Player.Jump;
 
         //コールバック登録
-        _jumpAction.performed += ctx => OnJumpStart();
-        _jumpAction.canceled += ctx => OnJumpCancel();
+        _jumpAction.performed += OnJumpStart;
+        _jumpAction.canceled += OnJumpCancel;
 
         Debug.Log("完了");
     }
 
     void OnDisable()
     {
-        _jumpAction.performed -= ctx => OnJumpStart();
-        _jumpAction.canceled -= ctx => OnJumpCancel();
+        _jumpAction.performed -= OnJumpStart;
+        _jumpAction.canceled -= OnJumpCancel;
 
         _inputActions.Player.Disable();
         _inputActions.Dispose();
@@ -60,7 +56,7 @@ public class PlayerJump : MonoBehaviour
         _defaultJumpForce = jumpForce;
     }
 
-    void OnJumpStart()
+    void OnJumpStart(InputAction.CallbackContext ctx)
     {
         if (!_isGround) return;
         _rigidbody.AddForce(gravity * jumpForce);
@@ -68,7 +64,7 @@ public class PlayerJump : MonoBehaviour
 
     float _jumpCancelVelocityThreshold = 0.25f;
     
-    void OnJumpCancel()
+    void OnJumpCancel(InputAction.CallbackContext ctx)
     {
         //まだ上昇を続けてるなら　反対のアドフォースをかける
         if (_rigidbody.linearVelocity.y > _jumpCancelVelocityThreshold && _rigidbody.gravityScale == 1 ||
