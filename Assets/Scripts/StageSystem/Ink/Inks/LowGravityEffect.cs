@@ -9,20 +9,6 @@ namespace StageSystem.Ink.Inks
         float _speedUpMultiplier = 3.5f;
         float _gravityDownMultiplier = 0.35f;
         
-        public LowGravityEffect(float speedUpMultiplier,float gravityDownMultiplier)
-        {
-            _speedUpMultiplier = Mathf.Max(0f, speedUpMultiplier);
-            _gravityDownMultiplier = Mathf.Max(0f, gravityDownMultiplier);
-        }
-
-        /*
-         テスト用
-        void Start()
-        {
-            _speedUpMultiplier = 3.5f;
-            _gravityDownMultiplier = 0.35f;
-        }
-        */
         
         public void UpdateInkArea(Rigidbody2D body)
         {
