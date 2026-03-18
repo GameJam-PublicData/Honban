@@ -49,7 +49,6 @@ public class InkAmount : MonoBehaviour,IInkAmount
     void OnClickEnd(InputAction.CallbackContext context)
     {
         _isHolding = false;
-        Debug.LogError("canceled");
     }
 
     void OnDisable()
