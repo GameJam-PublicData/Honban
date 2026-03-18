@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using MainSystem.Audio;
 using R3;
 using StageSystem.Ink;
 using UnityEngine;
+using VContainer;
 
 namespace StageSystem.Player
 {
@@ -19,6 +21,14 @@ public class PlayerEffect : MonoBehaviour ,IPlayerEffect
     Subject<(bool isIn,IInkEffect)> _inkEffectSubject = new();
     public Observable<(bool isIn,IInkEffect effect)> OnInkEffect => _inkEffectSubject;
 
+    IAudioManager _audioManager;
+
+    [Inject]
+    void Construct(IAudioManager audioManager)
+    {
+        _audioManager = audioManager;
+    }
+    
     Rigidbody2D _rigidbody2D;
     void Start()
     {
@@ -33,6 +43,10 @@ public class PlayerEffect : MonoBehaviour ,IPlayerEffect
             _currentEffects.Add(inkArea,effect);
             effect.StartInkArea(_rigidbody2D);
             _inkEffectSubject.OnNext((true,effect));
+            
+            Debug.Log("PlaySEAntiGravityStart");
+            
+            _audioManager.PlaySE("AntiGravityStart");
         }
     }
 

@@ -13,7 +13,7 @@ public class AntiGravityInkEffect : IInkEffect
     {
         if (rigidbody.gravityScale > 0)
         {
-            rigidbody.gravityScale *= -1f;
+            rigidbody.gravityScale = -0.5f;
             //回転
             rigidbody.DORotate(180, 0.1f).SetEase(Ease.Linear);
         }
@@ -28,7 +28,7 @@ public class AntiGravityInkEffect : IInkEffect
     {
         if (rigidbody.gravityScale < 0)
         {
-            rigidbody.gravityScale = Mathf.Abs(rigidbody.gravityScale);
+            rigidbody.gravityScale = 1f;
             //回転
             rigidbody.DORotate(0, 0.1f).SetEase(Ease.Linear);
         }
