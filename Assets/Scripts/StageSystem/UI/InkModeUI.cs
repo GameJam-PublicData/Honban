@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 using R3;
+using StageSystem.Ink.Inks;
 
 namespace StageSystem.UI
 {
@@ -36,31 +37,26 @@ public class InkModeUI : MonoBehaviour
         if (antigravity == null) Debug.LogWarning("antigravity is null");
         if (lowGravity == null) Debug.LogWarning("lowGravity is null");
         
-        currentInkEffect.Get.Subscribe(inkEffect =>
-        {
-            // TODO: materialNameが決まり次第、コメントアウトしているSwitchGravityを呼び出す
-            // SwitchGravity(inkEffect.MaterialName);
-        }).AddTo(this);
+        currentInkEffect.Get.Subscribe(SwitchGravity).AddTo(this);
     }
 
-    void SwitchGravity(string materialName)
+    void SwitchGravity(IInkEffect inkEffect)
     {
         // 現在のモードアイコンを上から、次モードアイコンを下からカーブで移動させる
-        switch (materialName)
+        switch (inkEffect)
         {
-            // TODO: materialNameが決まり次第設定
-            case "Antigravity":
+            case AntiGravityInkEffect:
                 // lowGravity -> antigravityへの切り替わり
                 MoveCurveUI(antigravity, curTargetPos, true);
                 MoveCurveUI(lowGravity, nextTargetPos, false);
                 break;
-            case "Low Gravity":
+            case LowGravityEffect:
                 // antigravity -> lowGravityへの切り替わり
                 MoveCurveUI(lowGravity, curTargetPos, true);
                 MoveCurveUI(antigravity, nextTargetPos, false);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(materialName), materialName, null);
+                throw new ArgumentOutOfRangeException(nameof(inkEffect), inkEffect, null);
         }
     }
     

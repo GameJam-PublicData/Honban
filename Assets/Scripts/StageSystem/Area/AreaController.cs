@@ -19,14 +19,14 @@ namespace StageSystem.Area
         CancellationTokenSource _drawingCts;
         IInkManager _inkManager;
         ICursorTrail _cursorTrail;
+        IInkAmount _inkAmount;
         
-        public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager,ICursorTrail cursorTrail)
+        public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager, ICursorTrail cursorTrail, IInkAmount  inkAmount)
         {
-            Debug.Log("AreaController");
-            
             _strokeBuilder = strokeBuilder;
             _inkManager = inkManager;
             _cursorTrail = cursorTrail;
+            _inkAmount = inkAmount;
         }
         
         public void PostStart()
@@ -96,22 +96,31 @@ namespace StageSystem.Area
 
             while (!token.IsCancellationRequested)
             {
+                // 現在のインク量から使用できるかの判別
+                if (!_inkAmount.IsInkAvailable()) CancelDrawing();
+                
                 // 画面上のマウス位置をワールド座標に変換
                 var screenPos = Mouse.current.position.ReadValue();
                 var worldPos = (Vector2)_mainCamera.ScreenToWorldPoint(
                     new Vector3(screenPos.x, screenPos.y, Mathf.Abs(_mainCamera.transform.position.z)));
                 
-                bool isCrossing = _strokeBuilder.IsCrossing(worldPos, out var points);
-                _cursorTrail.Draw(points);
-                
-                if (isCrossing)
+                // 直前で記録したポイントとの距離を計算しmin値以上か判別
+                if (!_strokeBuilder.DistanceCheck(worldPos))
                 {
-                    Debug.Log("交差が確認されました");
-                    OnCrossed(points);
-                    _cursorTrail.FadeOut();
-                    _inkManager.CreateInkArea(points);
+                    bool isCrossing = _strokeBuilder.IsCrossing(worldPos, out var points);
                     
-                    break;
+                    _inkAmount.ConsumeInk();
+                    _cursorTrail.Draw(points);
+                
+                    // 交差しているか
+                    if (isCrossing)
+                    {
+                        Debug.Log("交差が確認されました");
+                        OnCrossed(points);
+                        _cursorTrail.FadeOut();
+                        _inkManager.CreateInkArea(points);
+                        break;
+                    }
                 }
 
                 await UniTask.Yield(PlayerLoopTiming.Update, token);
