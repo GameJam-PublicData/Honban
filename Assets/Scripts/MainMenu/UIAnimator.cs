@@ -16,7 +16,7 @@ public class UIAnimator : MonoBehaviour
     {
         _image = GetComponent<Image>();
         
-        
+        _ = UpdateAnimation();
     }
 
     async UniTask UpdateAnimation()
