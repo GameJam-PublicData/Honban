@@ -7,7 +7,8 @@ public class AntiGravityInkEffect : IInkEffect
 {
     // TODO: MaterialNameが実装されていないため、仮で実装なので変更が加える必要があるなら変更してください。
     string IInkEffect.MaterialName => "AntiGravityMaterial";
-    
+    public float EffectUsageRate => 1f;
+
     public void UpdateInkArea(Rigidbody2D rigidbody)
     {
         if (rigidbody.gravityScale > 0)

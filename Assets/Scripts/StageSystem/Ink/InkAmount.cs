@@ -1,7 +1,9 @@
 using System;
 using InputSystemActions;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace StageSystem.Ink
 {
@@ -16,6 +18,15 @@ public class InkAmount : MonoBehaviour,IInkAmount
 {
     [SerializeField] float recoverInkUsageSecond = 10f;
     [SerializeField] float consumeInkUsage = 1f;
+    
+    [Inject]
+    public void Construct(ICurrentInkEffect currentInkEffect)
+    {
+        currentInkEffect.Get.Subscribe(effect =>
+        {
+            consumeInkUsage = effect.EffectUsageRate;
+        }).AddTo(this);
+    }
     
     bool _isHolding;
     InputActions  _inputActions;

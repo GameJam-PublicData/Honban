@@ -14,5 +14,6 @@ public interface IInkEffect
     
 
     string MaterialName { get; }
+    float EffectUsageRate { get; }
 }
 }
