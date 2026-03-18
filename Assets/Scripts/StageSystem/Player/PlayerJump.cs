@@ -1,7 +1,10 @@
 using InputSystemActions;
+using StageSystem.Ink;
+using StageSystem.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using VContainer;
 
 namespace StageSystem.Player
 {
@@ -9,9 +12,13 @@ public class PlayerJump : MonoBehaviour
 {
     InputActions _inputActions;
     InputAction _jumpAction;
+    
+    IInkAmount _inkAmount;
 
     Rigidbody2D _rigidbody;
     Collider2D _collider;
+
+    PlayerAnimator _playerAnimator;
 
     [FormerlySerializedAs("_jumpForce")] [SerializeField]
     float jumpForce = 200;
@@ -25,6 +32,11 @@ public class PlayerJump : MonoBehaviour
     bool _isGround;
     
 
+    [Inject]
+    void Construct(IInkAmount inkAmount)
+    {
+        _inkAmount = inkAmount;
+    }
 
     void OnEnable()
     {
@@ -53,6 +65,7 @@ public class PlayerJump : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
         _defaultJumpForce = jumpForce;
     }
 
@@ -60,6 +73,12 @@ public class PlayerJump : MonoBehaviour
     {
         if (!_isGround) return;
         _rigidbody.AddForce(gravity * jumpForce);
+        
+        //アニメーション
+        if (_playerAnimator != null)
+        {
+            _playerAnimator.JumpStart();
+        }
     }
 
     float _jumpCancelVelocityThreshold = 0.25f;
@@ -88,6 +107,8 @@ public class PlayerJump : MonoBehaviour
     void CheckGround()
     {
         Bounds bounds = _collider.bounds;
+
+        bool isGrounded = _isGround;
     
         // 重力方向によってい角度を変える
         float gravitySign = Mathf.Sign(_rigidbody.gravityScale);
@@ -108,8 +129,23 @@ public class PlayerJump : MonoBehaviour
     
         RaycastHit2D hit = Physics2D.Raycast(origin, rayDirection, groundCheckDistance, groundLayer);
         _isGround = hit.collider != null;
+        
+        if (_isGround) _inkAmount.RecoverInk();
     
         Debug.DrawRay(origin, rayDirection * groundCheckDistance, _isGround ? Color.green : Color.red);
+        
+        //アニメーション
+        if (_playerAnimator != null)
+        {
+            if (!_isGround)
+            {
+                _playerAnimator.Falling();
+            }
+            else if(_isGround != isGrounded)
+            {
+                _playerAnimator.FallEnd();
+            }
+        }
     }
     
     float _defaultJumpForce;
