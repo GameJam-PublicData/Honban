@@ -14,7 +14,7 @@ namespace StageSystem.UI.Mouse
     public class CursorTrail :  MonoBehaviour, ICursorTrail
     {
         LineRenderer _lineRenderer;
-        Camera _mainCamera;
+        UnityEngine.Camera _mainCamera;
         Material _lineMaterial;
 
         void Awake()
@@ -32,7 +32,7 @@ namespace StageSystem.UI.Mouse
                 Debug.LogWarning("Shader 'Sprites/Default' not found.");
             }
             
-            _mainCamera = Camera.main;
+            _mainCamera = UnityEngine.Camera.main;
             if (_mainCamera == null)
                 Debug.LogError("Main Camera not found.");
 
