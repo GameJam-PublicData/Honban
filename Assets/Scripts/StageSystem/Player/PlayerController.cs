@@ -37,10 +37,13 @@ namespace StageSystem.Player
         void Update()
         {
             Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+           
             Vector2 scaledInput = Vector2.Scale(moveInput, speedUpMultiplier);
             Vector2 moveDirection = transform.right * scaledInput.x + transform.up * scaledInput.y;
 
-            _rb.MovePosition(_rb.position + moveDirection * (moveSpeed * Time.deltaTime));
+            Vector2 moveVector = _rb.linearVelocity;
+            moveVector.x = moveDirection.x * moveSpeed;
+            _rb.linearVelocity = moveVector;
         }
 
         void OnDestroy()

@@ -480,7 +480,7 @@ Transform:
   m_GameObject: {fileID: 742089311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 12.9, z: 0}
   m_LocalScale: {x: 1000, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -500,6 +500,7 @@ GameObject:
   - component: {fileID: 971188572}
   - component: {fileID: 971188571}
   - component: {fileID: 971188577}
+  - component: {fileID: 971188578}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -533,7 +534,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!61 &971188572
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -587,7 +588,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971188570}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 193528ab0e314da4961416ee1fef5591, type: 3}
   m_Name: 
@@ -685,6 +686,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c125d225c64454692363166e73cbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Ink.InkDebuger
+--- !u!114 &971188578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971188570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a77c00bdd744d2ea58c09a31333a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerController
+  moveSpeed: 100
+  speedUpMultiplier: {x: 1, y: 1}
 --- !u!1 &1504953440
 GameObject:
   m_ObjectHideFlags: 0
