@@ -11,6 +11,8 @@ namespace StageSystem.Ink.Inks
 
         readonly Dictionary<Rigidbody2D, float> _healTimers = new();
         private IInkEffect _inkEffectImplementation;
+        public string MaterialName => _inkEffectImplementation.MaterialName;
+        public float EffectUsageRate => 1f;
 
         public void StartInkArea(Rigidbody2D body)
         {
@@ -38,6 +40,6 @@ namespace StageSystem.Ink.Inks
             _healTimers.Remove(body);
         }
 
-        public string MaterialName => _inkEffectImplementation.MaterialName;
+
     }
 }
