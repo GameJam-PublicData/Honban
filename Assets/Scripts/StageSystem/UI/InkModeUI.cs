@@ -38,7 +38,8 @@ public class InkModeUI : MonoBehaviour
         
         currentInkEffect.Get.Subscribe(inkEffect =>
         {
-            SwitchGravity(inkEffect.MaterialName);
+            // TODO: materialNameが決まり次第、コメントアウトしているSwitchGravityを呼び出す
+            // SwitchGravity(inkEffect.MaterialName);
         }).AddTo(this);
     }
 
