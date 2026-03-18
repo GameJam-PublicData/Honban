@@ -57,6 +57,7 @@ namespace StageSystem.Ink
         
         public void FadeOut()
         {
+            if(gameObject.activeInHierarchy == false) return;
             var mat = _lineRenderer.material;
             mat.DOColor(new Color(1, 1, 1, 0), "_Color", 0.5f).onComplete = Reset;
         }

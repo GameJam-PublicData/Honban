@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace StageSystem.Player
@@ -16,6 +18,9 @@ public class PlayerAnimator : MonoBehaviour
     PlayerAnimationState _animationState = PlayerAnimationState.Idle;
     int _nowAnimationFrame = 0;
 
+    public bool AnimationActive;
+    
+    
     bool _isDraw = false;
     bool _isJump = false;
     bool _isFall = false;
@@ -34,7 +39,7 @@ public class PlayerAnimator : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Animate());
+        Animate().Forget();
     }
 
     void UpdateAnimationStateByPriority()
@@ -108,68 +113,60 @@ public class PlayerAnimator : MonoBehaviour
         if(_animationState == PlayerAnimationState.Draw) return;
         UpdateAnimationStateByPriority();
     }
-    
-    IEnumerator Animate()
+
+    async UniTask Animate()
     {
-        yield return new WaitForSeconds(animationFrameRate);
+        await UniTask.Delay(TimeSpan.FromSeconds(animationFrameRate),cancellationToken: destroyCancellationToken);
+        await UniTask.WaitUntil( () => AnimationActive,cancellationToken: destroyCancellationToken);
         switch (_animationState)
         {
             case PlayerAnimationState.Idle:
                 spriteRenderer.sprite = idleSprite[_nowAnimationFrame];
-                
-                if (_nowAnimationFrame == idleSprite.Length - 1) {
-                    _nowAnimationFrame = 0; }
-                
-                else {
-                    _nowAnimationFrame++; }
-                
+
+                if (_nowAnimationFrame == idleSprite.Length - 1) _nowAnimationFrame = 0;
+                else
+                    _nowAnimationFrame++;
+
                 break;
             case PlayerAnimationState.Walk:
                 spriteRenderer.sprite = walkSprite[_nowAnimationFrame];
-                
-                if (_nowAnimationFrame == walkSprite.Length - 1) {
-                    _nowAnimationFrame = 0; }
-                
-                else {
-                    _nowAnimationFrame++; }
-                
+
+                if (_nowAnimationFrame == walkSprite.Length - 1) _nowAnimationFrame = 0;
+                else
+                    _nowAnimationFrame++;
+
                 break;
             case PlayerAnimationState.Jump:
-                
+
                 spriteRenderer.sprite = jumpSprite[_nowAnimationFrame];
-                
-                if(_nowAnimationFrame == jumpSprite.Length - 1) {
-                    _nowAnimationFrame = 0; 
+
+                if (_nowAnimationFrame == jumpSprite.Length - 1)
+                {
+                    _nowAnimationFrame = 0;
                     JumpEnd();
                 }
-                
-                else {
-                    _nowAnimationFrame++; }
-                
+                else
+                {
+                    _nowAnimationFrame++;
+                }
+
                 break;
             case PlayerAnimationState.JumpFall:
                 spriteRenderer.sprite = jumpFallSprite[_nowAnimationFrame];
-                
-                if(_nowAnimationFrame == jumpFallSprite.Length - 1) {
-                    _nowAnimationFrame = 0; }
-                
-                else {
-                    _nowAnimationFrame++; }
-                
+
+                if (_nowAnimationFrame == jumpFallSprite.Length - 1) _nowAnimationFrame = 0;
+                else _nowAnimationFrame++;
+
                 break;
             case PlayerAnimationState.Draw:
                 spriteRenderer.sprite = drawSprite[_nowAnimationFrame];
-                
-                if(_nowAnimationFrame == drawSprite.Length - 1) {
-                    _nowAnimationFrame = 0; }
-                
-                else {
-                    _nowAnimationFrame++; }
-                
+
+                if (_nowAnimationFrame == drawSprite.Length - 1) _nowAnimationFrame = 0;
+                else _nowAnimationFrame++;
                 break;
         }
-        
-        StartCoroutine(Animate());
+
+        Animate().Forget();
     }
 }
 
