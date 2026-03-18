@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 1694412059499671939}
   - component: {fileID: -501225066187417246}
   - component: {fileID: 5679036063309978175}
+  - component: {fileID: 3356746015162903245}
+  - component: {fileID: 912146013212808831}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -192,6 +194,35 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d9baefe47d8334f39b25ff039fa526fe, type: 3}
   - {fileID: 21300000, guid: 48ce3bd1ee0dc4497905137d61748697, type: 3}
   spriteRenderer: {fileID: 2768650977571147348}
+--- !u!114 &3356746015162903245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482725560385638947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae6621ed24940eda3b043e1aee40cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.GameActiveHandler
+  playerController: {fileID: 1895677216985437318}
+  rigidbody2D: {fileID: 8047290132617018212}
+  playerJump: {fileID: 8437155914500584304}
+  playerAnimator: {fileID: 5679036063309978175}
+--- !u!114 &912146013212808831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482725560385638947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66648a4ccdb9f43e3be5e8f32e681bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerHpManager
+  hp: 10
 --- !u!1 &8117824892345895430
 GameObject:
   m_ObjectHideFlags: 0
