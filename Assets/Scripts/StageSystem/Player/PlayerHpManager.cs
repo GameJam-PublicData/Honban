@@ -24,7 +24,7 @@ public class PlayerHpManager : MonoBehaviour, IPlayerHP
         if(hp <= 0)
         {
             Debug.Log("ゲームオーバー");
-            _clearUIManager.Initialize(false, gameObject);
+            _clearUIManager.Initialize(false);
             return;
         }
         _checkPointManager.MoveCheckPoint(transform);

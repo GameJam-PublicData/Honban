@@ -1,8 +1,9 @@
 using System;
 using InputSystemActions;
-using Unity.VisualScripting;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace StageSystem.Ink
 {
@@ -17,17 +18,25 @@ public class InkAmount : MonoBehaviour,IInkAmount
 {
     [SerializeField] float recoverInkUsageSecond = 10f;
     [SerializeField] float consumeInkUsage = 1f;
-    [SerializeField] float maxInkAmount = 200f;
+    
+    [Inject]
+    public void Construct(ICurrentInkEffect currentInkEffect)
+    {
+        currentInkEffect.Get.Subscribe(effect =>
+        {
+            consumeInkUsage = effect.EffectUsageRate;
+        }).AddTo(this);
+    }
     
     bool _isHolding;
     InputActions  _inputActions;
 
-    [field: SerializeField] public float Ink { get; private set; } = 100;
+    public float Ink { get; private set; } = 100;
     public bool IsInkAvailable() => Ink > 0;
     
     public void RecoverInk()
     {
-        if (Ink >= maxInkAmount || _isHolding) return;
+        if (Ink >= 100 || _isHolding) return;
         Ink += recoverInkUsageSecond * Time.deltaTime;
     }
 

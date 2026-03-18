@@ -693,7 +693,6 @@ GameObject:
   - component: {fileID: 5055375612126261471}
   - component: {fileID: 3732136682655719229}
   - component: {fileID: 3598221886345850781}
-  - component: {fileID: 9084579073540437627}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -701,38 +700,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &9084579073540437627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9084579073540437626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 864c6d9dfb29343c7ae097076e8d4d22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerAnimator
-  animationFrameRate: 0.12
-  idleSprite:
-  - {fileID: 21300000, guid: 62ae38388576b4eabb189bede9ce47e3, type: 3}
-  walkSprite:
-  - {fileID: 21300000, guid: 10e1233773e8f4427ab4e25d85d8f1d8, type: 3}
-  - {fileID: 21300000, guid: c8b5aff2ecee1487baaad5b14105b88d, type: 3}
-  - {fileID: 21300000, guid: c687ff65092804047a61da3ffaa894c9, type: 3}
-  - {fileID: 21300000, guid: a016c4485aad34e2784282916a4fedbc, type: 3}
-  jumpSprite:
-  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
-  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
-  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
-  - {fileID: 21300000, guid: 4f23d014f3d7540f58a3e8575e37f149, type: 3}
-  jumpFallSprite:
-  - {fileID: 21300000, guid: 4f23d014f3d7540f58a3e8575e37f149, type: 3}
-  drawSprite:
-  - {fileID: 21300000, guid: 075dcf080ff524354b7f891416c5a7b2, type: 3}
-  - {fileID: 21300000, guid: d9baefe47d8334f39b25ff039fa526fe, type: 3}
-  - {fileID: 21300000, guid: 48ce3bd1ee0dc4497905137d61748697, type: 3}
-  spriteRenderer: {fileID: 8794043885004794381}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
