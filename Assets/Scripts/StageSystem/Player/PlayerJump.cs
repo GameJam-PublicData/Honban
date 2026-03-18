@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using InputSystemActions;
+using StageSystem.Ink;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using VContainer;
 
 namespace StageSystem
 {
 public class PlayerJump : MonoBehaviour
 {
     InputActions _inputActions;
-
     InputAction _jumpAction;
 
     Rigidbody2D _rigidbody;
     Collider2D _collider;
+    
+    IInkAmount _inkAmount;
 
     [FormerlySerializedAs("_jumpForce")] [SerializeField]
     float jumpForce = 200;
@@ -29,6 +30,11 @@ public class PlayerJump : MonoBehaviour
 
     //Vector2 _gravity;
 
+    [Inject]
+    void Construct(IInkAmount inkAmount)
+    {
+        _inkAmount = inkAmount;
+    }
 
     void OnEnable()
     {
@@ -112,6 +118,8 @@ public class PlayerJump : MonoBehaviour
     
         RaycastHit2D hit = Physics2D.Raycast(origin, rayDirection, groundCheckDistance, groundLayer);
         _isGround = hit.collider != null;
+        
+        if (_isGround) _inkAmount.RecoverInk();
     
         Debug.DrawRay(origin, rayDirection * groundCheckDistance, _isGround ? Color.green : Color.red);
     }

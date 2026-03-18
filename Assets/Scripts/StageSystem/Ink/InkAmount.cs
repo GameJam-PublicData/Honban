@@ -9,28 +9,30 @@ public interface IInkAmount
 {
     float Ink { get; }
     bool IsInkAvailable();
+    void RecoverInk();
+    void ConsumeInk();
 }
 public class InkAmount : MonoBehaviour,IInkAmount
 {
-    [SerializeField]int inkUsage = 1;
+    [SerializeField] float recoverInkUsageSecond = 10f;
+    [SerializeField] float consumeInkUsage = 1f;
+    
     bool _isHolding;
     InputActions  _inputActions;
 
     public float Ink { get; private set; } = 100;
     public bool IsInkAvailable() => Ink > 0;
-
-    Vector2 _mousePos = Vector2.zero;
     
-    void Update()
+    public void RecoverInk()
     {
-        bool isMouseMove = _mousePos != Mouse.current.position.ReadValue();
-        _mousePos  = Mouse.current.position.ReadValue();
-        
-        if (_isHolding && Ink > 0 && isMouseMove)
-        {
-            Ink -= inkUsage * Time.deltaTime;
-            if(Ink < 0) Ink = 0;
-        }
+        if (Ink >= 100 || _isHolding) return;
+        Ink += recoverInkUsageSecond * Time.deltaTime;
+    }
+
+    public void ConsumeInk()
+    {
+        if (Ink <= 0) return;
+        Ink -= consumeInkUsage;
     }
 
     void OnEnable()
@@ -49,7 +51,7 @@ public class InkAmount : MonoBehaviour,IInkAmount
     void OnClickEnd(InputAction.CallbackContext context)
     {
         _isHolding = false;
-        Debug.LogError("canceled");
+        Debug.Log("canceled");
     }
 
     void OnDisable()
