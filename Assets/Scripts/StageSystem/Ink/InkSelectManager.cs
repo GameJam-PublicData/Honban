@@ -20,6 +20,8 @@ public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
 
     readonly List<IInkEffect>  _inkEffects = new();
     int _currentIndex = 0;
+    
+    
 
     void InkEffectsInitialize()
     {
@@ -34,36 +36,21 @@ public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
     {
         _inputActions = new InputActions();
         _inputActions.Player.Enable();
-        _inputActions.Player.NextInk.started += NextInk;
-        _inputActions.Player.BackInk.started += BackInk;
+        _inputActions.Player.SwitchInk.started += SwitchInk;
         InkEffectsInitialize();
     }
 
-    void NextInk(InputAction.CallbackContext ctx)
+    void SwitchInk(InputAction.CallbackContext ctx)
     {
-        _currentIndex++;
-        if (_currentIndex >= _inkEffects.Count)
-        {
-            _currentIndex = 0;
-        }
+        // インクの切り替え
+        _currentIndex = (_currentIndex + 1) % _inkEffects.Count;
+        _currentInkEffect.Value  = _inkEffects[_currentIndex];
         
-        _currentInkEffect.Value  = _inkEffects[_currentIndex];
     }
-
-    void BackInk(InputAction.CallbackContext ctx)
-    {
-        _currentIndex--;
-        if (_currentIndex < 0)
-        {
-            _currentIndex = _inkEffects.Count - 1;
-        }
-        _currentInkEffect.Value  = _inkEffects[_currentIndex];
-    }
-
+    
     void OnDisable()
     {
-        _inputActions.Player.NextInk.started -= NextInk;
-        _inputActions.Player.BackInk.started -= BackInk;
+        _inputActions.Player.SwitchInk.started -= SwitchInk;
         _inputActions.Player.Disable();
     }
 
