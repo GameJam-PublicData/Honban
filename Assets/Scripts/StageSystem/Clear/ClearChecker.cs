@@ -19,7 +19,7 @@ public class ClearChecker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("クリア");
-            _clearUIManager.Initialize(true, other.gameObject);
+            _clearUIManager.Initialize(true);
         }
     }
 }

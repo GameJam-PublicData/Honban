@@ -26,7 +26,6 @@ public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
     void InkEffectsInitialize()
     {
         //ステージのInkEffectを追加する
-        //todo最終的にはsextsuteidekiruyouni
         //_inkEffects.Add(new NoGravityInkEffect());
         _inkEffects.Add(new AntiGravityInkEffect());
         _inkEffects.Add(new LowGravityEffect());
@@ -58,6 +57,12 @@ public class InkSelectManager : MonoBehaviour ,ICurrentInkEffect
     {
         _inputActions.Player.SwitchInk.started -= SwitchInk;
         _inputActions.Player.Disable();
+    }
+    
+    public void SetInputActive(bool active)
+    {
+        if (active) _inputActions.Player.Enable();
+        else _inputActions.Player.Disable();
     }
 
     

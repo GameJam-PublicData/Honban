@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using StageSystem.Player;
 using UnityEngine;
 using VContainer;
 
@@ -34,6 +35,12 @@ public class InkManager : MonoBehaviour , IInkManager
     public void CreateInkArea(List<Vector2> points)
     {
         Debug.Log("インクエリアの作成");
+
+        if (PlayerAnimator.Instance != null)
+        {
+            PlayerAnimator.Instance.DrawEnd();
+        }
+
         IInkEffect inkEffect =  _currentInkEffect.Get.CurrentValue;
         GameObject inkAreaObj = Instantiate(inkAreaPrefab, _inkAreaRootParent);
         IInkArea inkArea = inkAreaObj.GetComponent<IInkArea>(); 
