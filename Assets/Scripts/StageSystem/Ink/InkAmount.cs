@@ -1,5 +1,6 @@
 using System;
 using InputSystemActions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,16 +17,17 @@ public class InkAmount : MonoBehaviour,IInkAmount
 {
     [SerializeField] float recoverInkUsageSecond = 10f;
     [SerializeField] float consumeInkUsage = 1f;
+    [SerializeField] float maxInkAmount = 200f;
     
     bool _isHolding;
     InputActions  _inputActions;
 
-    public float Ink { get; private set; } = 100;
+    [field: SerializeField] public float Ink { get; private set; } = 100;
     public bool IsInkAvailable() => Ink > 0;
     
     public void RecoverInk()
     {
-        if (Ink >= 100 || _isHolding) return;
+        if (Ink >= maxInkAmount || _isHolding) return;
         Ink += recoverInkUsageSecond * Time.deltaTime;
     }
 
