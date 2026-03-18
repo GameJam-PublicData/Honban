@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using InputSystemActions;
 using R3;
 using UnityEngine;
@@ -13,11 +14,14 @@ public interface IInkAmount
     bool IsInkAvailable();
     void RecoverInk();
     void ConsumeInk();
+    void IsCompleteArea();
 }
 public class InkAmount : MonoBehaviour,IInkAmount
 {
     [SerializeField] float recoverInkUsageSecond = 10f;
     [SerializeField] float consumeInkUsage = 1f;
+    [SerializeField] float recoverInkAmount = 5f;
+    [SerializeField] float notRecoverTime = 5f;
     
     [Inject]
     public void Construct(ICurrentInkEffect currentInkEffect)
@@ -32,18 +36,33 @@ public class InkAmount : MonoBehaviour,IInkAmount
     InputActions  _inputActions;
 
     public float Ink { get; private set; } = 100;
+    const float MaxInk = 100;
     public bool IsInkAvailable() => Ink > 0;
     
     public void RecoverInk()
     {
-        if (Ink >= 100 || _isHolding) return;
-        Ink += recoverInkUsageSecond * Time.deltaTime;
+        if (Ink >= MaxInk || _isHolding) return;
+        float completeRecoveryRate = _isNotComplete ? recoverInkAmount : 1; 
+        Ink += recoverInkUsageSecond * Time.deltaTime * completeRecoveryRate;
+        if(Ink > MaxInk) Ink = MaxInk;
     }
 
     public void ConsumeInk()
     {
         if (Ink <= 0) return;
         Ink -= consumeInkUsage;
+        if(Ink < 0) Ink = 0;
+        if(_isNotComplete == false && _isNotRecoverTime == false) _isNotComplete  = true;
+    }
+
+    [SerializeField]bool _isNotComplete = true;//円を描き切れたか
+    bool _isNotRecoverTime;
+    public void IsCompleteArea()
+    {
+        _isNotComplete = false;
+        _isNotRecoverTime = true;
+        UniTask.Delay(TimeSpan.FromSeconds(notRecoverTime),cancellationToken:destroyCancellationToken)
+            .ContinueWith(() => _isNotRecoverTime = false).Forget();
     }
 
     void OnEnable()
