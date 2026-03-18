@@ -10,72 +10,77 @@ using VContainer.Unity;
 
 namespace StageSystem.Area
 {
-public interface IAreaController
-{
-    void SetInputActive(bool active);
-}
+    public class AreaController : IPostStartable, IDisposable
+    { 
+        UnityEngine.Camera _mainCamera;
+        IStrokeBuilder _strokeBuilder;
+        InputActions _inputActions;
+        CancellationTokenSource _drawingCts;
+        IInkManager _inkManager;
+        ICursorTrail _cursorTrail;
+        IInkAmount _inkAmount;
+        
+        public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager, ICursorTrail cursorTrail, IInkAmount  inkAmount)
+        {
+            _strokeBuilder = strokeBuilder;
+            _inkManager = inkManager;
+            _cursorTrail = cursorTrail;
+            _inkAmount = inkAmount;
+        }
+        
+        public void PostStart()
+        {
+            Debug.Log("Initialize");
+            
+            _mainCamera = UnityEngine.Camera.main;
+            
+            _inputActions = new InputActions();
+            _inputActions.Enable();
+            
+            _inputActions.Player.Attack.started += OnAttackStarted;
+            _inputActions.Player.Attack.canceled += OnAttackCanceled;
+        }
 
-public class AreaController : IPostStartable, IDisposable,IAreaController
-{
-    UnityEngine.Camera _mainCamera;
-    IStrokeBuilder _strokeBuilder;
-    InputActions _inputActions;
-    CancellationTokenSource _drawingCts;
-    IInkManager _inkManager;
-    ICursorTrail _cursorTrail;
-    IInkAmount _inkAmount;
+        public void Dispose()
+        {
+            Debug.Log("Dispose");
+            
+            _inputActions.Player.Attack.started -= OnAttackStarted;
+            _inputActions.Player.Attack.canceled -= OnAttackCanceled;
+            _inputActions.Disable();
+            
+            CancelDrawing();
+        }
+
+        void OnAttackStarted(InputAction.CallbackContext ctx)
+        {
+            _drawingCts = new CancellationTokenSource();
+            BeginDrawing(_drawingCts.Token).Forget();
+
+            if (PlayerAnimator.Instance != null)
+            {
+                PlayerAnimator.Instance.DrawStart();
+            }
+        }
+
+        void OnAttackCanceled(InputAction.CallbackContext ctx) => CancelDrawing();
+        
+        void CancelDrawing()
+        {
+            Debug.Log("CancelDrawing");
+            
+            _drawingCts?.Cancel();
+            _drawingCts?.Dispose();
+            _drawingCts = null;
+            
+            _cursorTrail.FadeOut();
 
 
-    public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager, ICursorTrail cursorTrail, IInkAmount inkAmount)
-    {
-        _strokeBuilder = strokeBuilder;
-        _inkManager = inkManager;
-        _cursorTrail = cursorTrail;
-        _inkAmount = inkAmount;
-    }
-
-
-    public void PostStart()
-    {
-        Debug.Log("Initialize");
-
-        _mainCamera = UnityEngine.Camera.main;
-
-        _inputActions = new InputActions();
-        _inputActions.Enable();
-
-        _inputActions.Player.Attack.started += OnAttackStarted;
-        _inputActions.Player.Attack.canceled += OnAttackCanceled;
-    }
-    public void Dispose()
-    {
-        Debug.Log("Dispose");
-
-        _inputActions.Player.Attack.started -= OnAttackStarted;
-        _inputActions.Player.Attack.canceled -= OnAttackCanceled;
-        _inputActions.Disable();
-
-        CancelDrawing();
-    }
-
-    void OnAttackStarted(InputAction.CallbackContext ctx)
-    {
-        _drawingCts = new CancellationTokenSource();
-        BeginDrawing(_drawingCts.Token).Forget();
-    }
-
-    void OnAttackCanceled(InputAction.CallbackContext ctx) => CancelDrawing();
-
-    void CancelDrawing()
-    {
-        Debug.Log("CancelDrawing");
-
-        _drawingCts?.Cancel();
-        _drawingCts?.Dispose();
-        _drawingCts = null;
-
-        _cursorTrail?.FadeOut();
-    }
+            if (PlayerAnimator.Instance != null)
+            {
+                PlayerAnimator.Instance.DrawEnd();
+            }
+        }
 
     async UniTaskVoid BeginDrawing(CancellationToken token)
     {

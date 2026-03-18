@@ -28,6 +28,8 @@ public class PlayerAnimator : MonoBehaviour
     
     [SerializeField]
     SpriteRenderer spriteRenderer;
+
+    public static PlayerAnimator Instance;
     
     //アニメーション優先度　上から順
     //1.書いている時
@@ -40,15 +42,27 @@ public class PlayerAnimator : MonoBehaviour
     void Start()
     {
         Animate().Forget();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerAnimatorのインスタンスが複数存在しています。");
+            Destroy(this);
+        }
+      
     }
 
     void UpdateAnimationStateByPriority()
     {
-        // Draw中は外部ロジックを優先し、ここでは遷移させない
-        if (_animationState == PlayerAnimationState.Draw) return;
-
         PlayerAnimationState nextState;
-        if (_isJump)
+        
+        if(_isDraw)
+        {
+            nextState = PlayerAnimationState.Draw;
+        }
+        else if (_isJump)
         {
             nextState = PlayerAnimationState.Jump;
         }
@@ -114,59 +128,80 @@ public class PlayerAnimator : MonoBehaviour
         UpdateAnimationStateByPriority();
     }
 
-    async UniTask Animate()
+    public void DrawStart()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(animationFrameRate),cancellationToken: destroyCancellationToken);
-        await UniTask.WaitUntil( () => AnimationActive,cancellationToken: destroyCancellationToken);
+        if(_isDraw) return;
+        _isDraw = true;
+        
+        Debug.Log("DrawStart");
+        
+        _animationState = PlayerAnimationState.Draw;
+        _nowAnimationFrame = 0;
+    }
+
+    public void DrawEnd()
+    {
+        if(!_isDraw) return;
+        _isDraw = false;
+        
+        UpdateAnimationStateByPriority();
+    }
+    
+    IEnumerator Animate()
+    {
+        yield return new WaitForSeconds(animationFrameRate);
+
+        Sprite[] frames = null;
+        bool endJumpOnLastFrame = false;
+
         switch (_animationState)
         {
             case PlayerAnimationState.Idle:
-                spriteRenderer.sprite = idleSprite[_nowAnimationFrame];
-
-                if (_nowAnimationFrame == idleSprite.Length - 1) _nowAnimationFrame = 0;
-                else
-                    _nowAnimationFrame++;
-
+                frames = idleSprite;
                 break;
             case PlayerAnimationState.Walk:
-                spriteRenderer.sprite = walkSprite[_nowAnimationFrame];
-
-                if (_nowAnimationFrame == walkSprite.Length - 1) _nowAnimationFrame = 0;
-                else
-                    _nowAnimationFrame++;
-
+                frames = walkSprite;
                 break;
             case PlayerAnimationState.Jump:
-
-                spriteRenderer.sprite = jumpSprite[_nowAnimationFrame];
-
-                if (_nowAnimationFrame == jumpSprite.Length - 1)
-                {
-                    _nowAnimationFrame = 0;
-                    JumpEnd();
-                }
-                else
-                {
-                    _nowAnimationFrame++;
-                }
-
+                frames = jumpSprite;
+                endJumpOnLastFrame = true;
                 break;
             case PlayerAnimationState.JumpFall:
-                spriteRenderer.sprite = jumpFallSprite[_nowAnimationFrame];
-
-                if (_nowAnimationFrame == jumpFallSprite.Length - 1) _nowAnimationFrame = 0;
-                else _nowAnimationFrame++;
-
+                frames = jumpFallSprite;
                 break;
             case PlayerAnimationState.Draw:
-                spriteRenderer.sprite = drawSprite[_nowAnimationFrame];
-
-                if (_nowAnimationFrame == drawSprite.Length - 1) _nowAnimationFrame = 0;
-                else _nowAnimationFrame++;
+                frames = drawSprite;
                 break;
         }
 
-        Animate().Forget();
+        if (frames == null || frames.Length == 0)
+        {
+            StartCoroutine(Animate());
+            yield break;
+        }
+
+        if (_nowAnimationFrame < 0 || _nowAnimationFrame >= frames.Length)
+        {
+            _nowAnimationFrame = 0;
+        }
+
+        spriteRenderer.sprite = frames[_nowAnimationFrame];
+
+        bool isLastFrame = (_nowAnimationFrame == frames.Length - 1);
+        if (isLastFrame)
+        {
+            _nowAnimationFrame = 0;
+            if (endJumpOnLastFrame)
+            {
+                JumpEnd();
+            }
+        }
+        else
+        {
+            _nowAnimationFrame++;
+        }
+
+        StartCoroutine(Animate());
     }
 }
 
