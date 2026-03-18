@@ -43,7 +43,7 @@ public class GameActiveHandler : MonoBehaviour ,IActiveHandler
         if(!_gameActive) return;
         Debug.Log("ゲーム停止");
         _gameActive = false;
-        rigidbody2D.simulated  = false;
+        rigidbody2D.bodyType = RigidbodyType2D.Static;
         playerController.enabled = false;
         playerJump.enabled = false;
         playerAnimator.enabled = false;
@@ -57,7 +57,7 @@ public class GameActiveHandler : MonoBehaviour ,IActiveHandler
         if(_gameActive) return;
         Debug.Log("ゲーム再開");
         _gameActive = true;
-        rigidbody2D.simulated  = true;
+        rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         playerController.enabled = true;
         playerJump.enabled = true;
         playerAnimator.enabled = true;
