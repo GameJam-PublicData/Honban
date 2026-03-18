@@ -18,8 +18,8 @@ public class InkModeUI : MonoBehaviour
     [SerializeField] Image lowGravity;
     
     [Header("数値調節")]
-    [SerializeField] Vector2 curTargetPos;
-    [SerializeField] Vector2 nextTargetPos;
+    [SerializeField] Vector2 curTargetPos = new Vector2(-45, 25);
+    [SerializeField] Vector2 nextTargetPos = new Vector2(45, 25);
 
     [SerializeField] float height = 100f;
     [SerializeField] float duration = 0.5f;
