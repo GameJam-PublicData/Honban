@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7893106500613999556}
   - component: {fileID: 1694412059499671939}
   - component: {fileID: -501225066187417246}
+  - component: {fileID: 5679036063309978175}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -70,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerController
   moveSpeed: 3
   speedUpMultiplier: {x: 1, y: 1}
-  playerSprite: {fileID: 0}
+  playerSprite: {fileID: 2482725560385638947}
 --- !u!50 &8047290132617018212
 Rigidbody2D:
   serializedVersion: 5
@@ -94,7 +95,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -159,6 +160,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cb9419e8971446c812b68b85316c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Camera.FollowObject
+--- !u!114 &5679036063309978175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2482725560385638947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864c6d9dfb29343c7ae097076e8d4d22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerAnimator
+  animationFrameRate: 0.12
+  idleSprite:
+  - {fileID: 21300000, guid: 62ae38388576b4eabb189bede9ce47e3, type: 3}
+  walkSprite:
+  - {fileID: 21300000, guid: 10e1233773e8f4427ab4e25d85d8f1d8, type: 3}
+  - {fileID: 21300000, guid: c8b5aff2ecee1487baaad5b14105b88d, type: 3}
+  - {fileID: 21300000, guid: c687ff65092804047a61da3ffaa894c9, type: 3}
+  - {fileID: 21300000, guid: a016c4485aad34e2784282916a4fedbc, type: 3}
+  jumpSprite:
+  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
+  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
+  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
+  - {fileID: 21300000, guid: 4f23d014f3d7540f58a3e8575e37f149, type: 3}
+  jumpFallSprite:
+  - {fileID: 21300000, guid: 4f23d014f3d7540f58a3e8575e37f149, type: 3}
+  drawSprite:
+  - {fileID: 21300000, guid: 075dcf080ff524354b7f891416c5a7b2, type: 3}
+  - {fileID: 21300000, guid: d9baefe47d8334f39b25ff039fa526fe, type: 3}
+  - {fileID: 21300000, guid: 48ce3bd1ee0dc4497905137d61748697, type: 3}
+  spriteRenderer: {fileID: 2768650977571147348}
 --- !u!1 &8117824892345895430
 GameObject:
   m_ObjectHideFlags: 0
