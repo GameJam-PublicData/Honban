@@ -12,6 +12,8 @@ public class PlayerJump : MonoBehaviour
 {
     InputActions _inputActions;
     InputAction _jumpAction;
+    
+    IInkAmount _inkAmount;
 
     Rigidbody2D _rigidbody;
     Collider2D _collider;
