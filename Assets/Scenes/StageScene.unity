@@ -124,6 +124,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8767067893271871983, guid: 04a7c5e7d43784b0faa9f669f591cd76, type: 3}
   m_PrefabInstance: {fileID: 1971390568}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &282893542 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2768650977571147348, guid: f0b26431950f84aedb5fe0637aacf7a5, type: 3}
+  m_PrefabInstance: {fileID: 288124494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &288124494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,13 +184,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2482725560385638947, guid: f0b26431950f84aedb5fe0637aacf7a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 288124496}
   m_SourcePrefab: {fileID: 100100000, guid: f0b26431950f84aedb5fe0637aacf7a5, type: 3}
 --- !u!1 &288124495 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2482725560385638947, guid: f0b26431950f84aedb5fe0637aacf7a5, type: 3}
   m_PrefabInstance: {fileID: 288124494}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &288124496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288124495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864c6d9dfb29343c7ae097076e8d4d22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerAnimator
+  animationFrameRate: 0.12
+  idleSprite:
+  - {fileID: 21300000, guid: 62ae38388576b4eabb189bede9ce47e3, type: 3}
+  walkSprite:
+  - {fileID: 21300000, guid: 10e1233773e8f4427ab4e25d85d8f1d8, type: 3}
+  - {fileID: 21300000, guid: c8b5aff2ecee1487baaad5b14105b88d, type: 3}
+  - {fileID: 21300000, guid: c687ff65092804047a61da3ffaa894c9, type: 3}
+  - {fileID: 21300000, guid: a016c4485aad34e2784282916a4fedbc, type: 3}
+  jumpSprite:
+  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
+  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
+  - {fileID: 21300000, guid: c710ee29ea364486e99dd07ae0f2d712, type: 3}
+  - {fileID: 21300000, guid: 4f23d014f3d7540f58a3e8575e37f149, type: 3}
+  jumpFallSprite:
+  - {fileID: 21300000, guid: 4f23d014f3d7540f58a3e8575e37f149, type: 3}
+  drawSprite:
+  - {fileID: 21300000, guid: 075dcf080ff524354b7f891416c5a7b2, type: 3}
+  - {fileID: 21300000, guid: d9baefe47d8334f39b25ff039fa526fe, type: 3}
+  - {fileID: 21300000, guid: 48ce3bd1ee0dc4497905137d61748697, type: 3}
+  spriteRenderer: {fileID: 282893542}
 --- !u!1001 &604542580
 PrefabInstance:
   m_ObjectHideFlags: 0

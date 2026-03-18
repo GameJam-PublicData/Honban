@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using InputSystemActions;
 using StageSystem.Ink;
+using StageSystem.Player;
 using VContainer.Unity;
 
 namespace StageSystem.Area
@@ -56,6 +57,11 @@ namespace StageSystem.Area
         {
             _drawingCts = new CancellationTokenSource();
             BeginDrawing(_drawingCts.Token).Forget();
+
+            if (PlayerAnimator.Instance != null)
+            {
+                PlayerAnimator.Instance.DrawStart();
+            }
         }
 
         void OnAttackCanceled(InputAction.CallbackContext ctx) => CancelDrawing();
@@ -69,6 +75,12 @@ namespace StageSystem.Area
             _drawingCts = null;
             
             _cursorTrail.FadeOut();
+
+
+            if (PlayerAnimator.Instance != null)
+            {
+                PlayerAnimator.Instance.DrawEnd();
+            }
         }
 
         async UniTaskVoid BeginDrawing(CancellationToken token)
@@ -88,7 +100,7 @@ namespace StageSystem.Area
                 var screenPos = Mouse.current.position.ReadValue();
                 var worldPos = (Vector2)_mainCamera.ScreenToWorldPoint(
                     new Vector3(screenPos.x, screenPos.y, Mathf.Abs(_mainCamera.transform.position.z)));
-
+                
                 bool isCrossing = _strokeBuilder.IsCrossing(worldPos, out var points);
                 _cursorTrail.Draw(points);
                 
@@ -98,6 +110,7 @@ namespace StageSystem.Area
                     OnCrossed(points);
                     _cursorTrail.FadeOut();
                     _inkManager.CreateInkArea(points);
+                    
                     break;
                 }
 
