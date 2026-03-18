@@ -15,6 +15,7 @@ public interface IInkManager
 public class InkManager : MonoBehaviour , IInkManager
 {
     [SerializeField] GameObject inkAreaPrefab;
+    [SerializeField] InkEffectMaterialSO inkEffectMaterialSO;
     Transform _inkAreaRootParent;
     ICurrentInkEffect _currentInkEffect;
 
@@ -35,7 +36,13 @@ public class InkManager : MonoBehaviour , IInkManager
         IInkEffect inkEffect =  _currentInkEffect.Get.CurrentValue;
         GameObject inkAreaObj = Instantiate(inkAreaPrefab, _inkAreaRootParent);
         IInkArea inkArea = inkAreaObj.GetComponent<IInkArea>(); 
-        inkArea.CreateInkArea(points, inkEffect);
+        Material material = inkEffectMaterialSO.GetMaterial(inkEffect.MaterialName);
+        if(material == null)
+        {
+            Debug.LogError($"Material not found for {inkEffect.MaterialName}");
+            return;
+        }
+        inkArea.CreateInkArea(points, inkEffect, material);
     }
 
 }

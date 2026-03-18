@@ -6,6 +6,7 @@ namespace StageSystem.Ink.Inks
 public class NoGravityInkEffect  : IInkEffect
 {
     readonly Dictionary<Rigidbody2D, Vector2> _originalVelocities = new();
+    public string MaterialName => "NoGravityInkMaterial";
     
     public void UpdateInkArea(Rigidbody2D rigidbody)
     {
@@ -25,5 +26,7 @@ public class NoGravityInkEffect  : IInkEffect
         Debug.Log("重力なしインクエリアの終了");
         _originalVelocities.Remove(rigidbody);
     }
+
+
 }
 }
