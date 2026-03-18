@@ -51,7 +51,6 @@ public class PauseUIManager : MonoBehaviour
     {
         _inputActions.Player.Escape.started -= OnEscapeButton;
         _inputActions.Player.Disable();
-        _inputActions.Dispose();
     }
 
 
@@ -68,7 +67,6 @@ public class PauseUIManager : MonoBehaviour
     
     public void Pause()
     {
-        Debug.LogError("PauseUIManager Pause");
         pauseCanvas.gameObject.SetActive(true);
         _activeHandler.StopGame();
     }

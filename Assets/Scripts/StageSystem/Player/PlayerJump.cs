@@ -57,7 +57,6 @@ public class PlayerJump : MonoBehaviour
         _jumpAction.canceled -= OnJumpCancel;
 
         _inputActions.Player.Disable();
-        _inputActions.Dispose();
         _inputActions = null;
     }
 
