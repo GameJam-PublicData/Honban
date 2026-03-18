@@ -53,15 +53,20 @@ namespace StageSystem.Player
             }
             
             //左に行くときは左向き　右の時は右向きにする
-            if (moveInput.x > 0)
+            if (playerSprite != null)
             {
-                playerSprite.transform.localScale = new Vector3(- MathF.Abs(playerSprite.transform.localScale.x), playerSprite.transform.localScale.y, 1f);
+                if (moveInput.x > 0)
+                {
+                    playerSprite.transform.localScale = new Vector3(-MathF.Abs(playerSprite.transform.localScale.x),
+                        playerSprite.transform.localScale.y, 1f);
+                }
+                else if (moveInput.x < 0)
+                {
+                    playerSprite.transform.localScale = new Vector3(MathF.Abs(playerSprite.transform.localScale.x),
+                        playerSprite.transform.localScale.y, 1f);
+                }
             }
-            else if (moveInput.x < 0)
-            {
-                playerSprite.transform.localScale = new Vector3(MathF.Abs(playerSprite.transform.localScale.x), playerSprite.transform.localScale.y, 1f);
-            }
-            
+
             Vector2 scaledInput = Vector2.Scale(moveInput, speedUpMultiplier);
             Vector2 moveDirection = transform.right * scaledInput.x + transform.up * scaledInput.y;
             
