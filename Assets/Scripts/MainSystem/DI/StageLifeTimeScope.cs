@@ -3,6 +3,7 @@ using MainSystem.Audio;
 using MainSystem.Scene;
 using StageSystem.Area;
 using StageSystem.Ink;
+using StageSystem.UI.Mouse;
 using VContainer;
 using VContainer.Unity;
 
@@ -18,6 +19,8 @@ public class StageLifeTimeScope : LifetimeScope
         builder.RegisterComponentInHierarchy<InkManager>().As<IInkManager>();
         builder.Register<IStrokeBuilder,StrokeBuilder>(Lifetime.Scoped);
         builder.RegisterComponentInHierarchy<InkAmount>().As<IInkAmount>();
+        builder.RegisterComponentInHierarchy<ICursorTrail>();
+        builder.Register<AreaController>(Lifetime.Scoped).AsImplementedInterfaces();
     }
 
     void Start()

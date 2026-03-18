@@ -7,6 +7,7 @@ namespace StageSystem.UI.Mouse
     {
         void Draw(List<Vector2> points);
         void ChangeColor(Color color);
+        void FadeOut();
     }
     public class CursorTrail :  MonoBehaviour, ICursorTrail
     {
@@ -42,6 +43,11 @@ namespace StageSystem.UI.Mouse
         {
             _lineRenderer.startColor = color;
             _lineRenderer.endColor = color;
+        }
+        
+        public void FadeOut()
+        {
+            var mat = _lineRenderer.material;
         }
     }
 }

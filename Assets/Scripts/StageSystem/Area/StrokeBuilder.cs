@@ -15,7 +15,7 @@ namespace StageSystem.Area
         readonly List<Vector2> _points = new();
         const float MinDistance = 0.05f;
 
-        public bool DistanceCheck(Vector2 worldPos)
+        bool DistanceCheck(Vector2 worldPos)
         {
             return _points.Count > 0 && Vector2.Distance(_points[^1], worldPos) < MinDistance;
         }
@@ -36,16 +36,18 @@ namespace StageSystem.Area
 
             for (int i = 0; i < _points.Count - 3; i++)
             {
-                var start = _points[i];
-                int startIndex = i;
-                var end = _points[i + 1];
+                var startIndex = i;
+                
+                var start = _points[startIndex];
+                var end = _points[startIndex + 1];
                 
                 if (Intersect(latestStart, latestEnd, start, end))
                 {
                     Debug.Log("交差を検出");
                     //現在と一つ前の線分(last~)とfor文で現在のポイントをチェックしている
+                    
                     //StartとEndの線分が交差しているか
-                    _points.RemoveRange(0,startIndex);//Startまでを消す
+                    _points.RemoveRange(0, startIndex); //Startまでを消す
                     points = _points;
                     return true;
                 }

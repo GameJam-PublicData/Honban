@@ -20,7 +20,7 @@ namespace StageSystem.Area
         IInkManager _inkManager;
         ICursorTrail _cursorTrail;
         
-        public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager, ICursorTrail cursorTrail)
+        public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager,ICursorTrail cursorTrail)
         {
             Debug.Log("AreaController");
             
@@ -72,7 +72,7 @@ namespace StageSystem.Area
             _drawingCts = null;
         }
 
-        public async UniTaskVoid BeginDrawing(CancellationToken token)
+        async UniTaskVoid BeginDrawing(CancellationToken token)
         {
             Debug.Log("BeginDrawing");
             
