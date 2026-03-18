@@ -1,4 +1,5 @@
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,16 +16,18 @@ public class UIAnimator : MonoBehaviour
     {
         _image = GetComponent<Image>();
         
-        StartCoroutine(UpdateAnimation());
+        
     }
 
-    IEnumerator UpdateAnimation()
+    async UniTask UpdateAnimation()
     {
-        yield return new WaitForSeconds(animationFrameRate);
-        _image.sprite = animationFrames[_currentFrame];
-        _currentFrame++;
-        if(_currentFrame >= animationFrames.Length) _currentFrame = 0;
-        StartCoroutine(UpdateAnimation());
+        while (true)
+        {
+            await UniTask.Delay(System.TimeSpan.FromSeconds(animationFrameRate));
+            _image.sprite = animationFrames[_currentFrame];
+            _currentFrame++;
+            if (_currentFrame >= animationFrames.Length) _currentFrame = 0;
+        }
     }
 }
 }
