@@ -122,7 +122,7 @@ namespace InputSystemActions
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""NextInk"",
+                    ""name"": ""SwitchInk"",
                     ""type"": ""Button"",
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
                     ""expectedControlType"": """",
@@ -534,18 +534,7 @@ namespace InputSystemActions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NextInk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b3f66d0b-7751-423f-908b-a11c5bd95930"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""NextInk"",
+                    ""action"": ""SwitchInk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1169,7 +1158,7 @@ namespace InputSystemActions
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-            m_Player_NextInk = m_Player.FindAction("NextInk", throwIfNotFound: true);
+            m_Player_SwitchInk = m_Player.FindAction("SwitchInk", throwIfNotFound: true);
             m_Player_BackInk = m_Player.FindAction("BackInk", throwIfNotFound: true);
             m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
@@ -1272,7 +1261,7 @@ namespace InputSystemActions
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Attack;
-        private readonly InputAction m_Player_NextInk;
+        private readonly InputAction m_Player_SwitchInk;
         private readonly InputAction m_Player_BackInk;
         private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Jump;
@@ -1303,9 +1292,9 @@ namespace InputSystemActions
             /// </summary>
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
             /// <summary>
-            /// Provides access to the underlying input action "Player/NextInk".
+            /// Provides access to the underlying input action "Player/SwitchInk".
             /// </summary>
-            public InputAction @NextInk => m_Wrapper.m_Player_NextInk;
+            public InputAction @SwitchInk => m_Wrapper.m_Player_SwitchInk;
             /// <summary>
             /// Provides access to the underlying input action "Player/BackInk".
             /// </summary>
@@ -1365,9 +1354,9 @@ namespace InputSystemActions
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
-                @NextInk.started += instance.OnNextInk;
-                @NextInk.performed += instance.OnNextInk;
-                @NextInk.canceled += instance.OnNextInk;
+                @SwitchInk.started += instance.OnSwitchInk;
+                @SwitchInk.performed += instance.OnSwitchInk;
+                @SwitchInk.canceled += instance.OnSwitchInk;
                 @BackInk.started += instance.OnBackInk;
                 @BackInk.performed += instance.OnBackInk;
                 @BackInk.canceled += instance.OnBackInk;
@@ -1406,9 +1395,9 @@ namespace InputSystemActions
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
-                @NextInk.started -= instance.OnNextInk;
-                @NextInk.performed -= instance.OnNextInk;
-                @NextInk.canceled -= instance.OnNextInk;
+                @SwitchInk.started -= instance.OnSwitchInk;
+                @SwitchInk.performed -= instance.OnSwitchInk;
+                @SwitchInk.canceled -= instance.OnSwitchInk;
                 @BackInk.started -= instance.OnBackInk;
                 @BackInk.performed -= instance.OnBackInk;
                 @BackInk.canceled -= instance.OnBackInk;
@@ -1749,12 +1738,12 @@ namespace InputSystemActions
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnAttack(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "NextInk" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "SwitchInk" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnNextInk(InputAction.CallbackContext context);
+            void OnSwitchInk(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "BackInk" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

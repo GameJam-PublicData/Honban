@@ -3,7 +3,6 @@ using MainSystem.Audio;
 using MainSystem.Scene;
 using StageSystem.Area;
 using StageSystem.Ink;
-using StageSystem.UI.Mouse;
 using VContainer;
 using VContainer.Unity;
 

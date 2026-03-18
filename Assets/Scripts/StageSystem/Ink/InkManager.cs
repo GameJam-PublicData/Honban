@@ -33,6 +33,7 @@ public class InkManager : MonoBehaviour , IInkManager
     //ここでインク作成依頼
     public void CreateInkArea(List<Vector2> points)
     {
+        Debug.Log("インクエリアの作成");
         IInkEffect inkEffect =  _currentInkEffect.Get.CurrentValue;
         GameObject inkAreaObj = Instantiate(inkAreaPrefab, _inkAreaRootParent);
         IInkArea inkArea = inkAreaObj.GetComponent<IInkArea>(); 
