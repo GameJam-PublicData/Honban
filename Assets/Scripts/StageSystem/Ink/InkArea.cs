@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using R3;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class InkArea : MonoBehaviour, IInkArea
     [SerializeField] PolygonCollider2D polygonCollider2D;
     
     const float InkAreaActiveTime = 10f;
+    const float InkFlashingTime = 3f;
+    const float duration = 0.2f;
     
     Action _onEffectEnd = () => { };
     
@@ -53,11 +56,20 @@ public class InkArea : MonoBehaviour, IInkArea
         DestroyInkArea().Forget();
     }
     
-
     async UniTask DestroyInkArea()
     {
-        await UniTask.Delay((int)(InkAreaActiveTime * 1000));
-        //todo エフェクト
+        // 点滅までの待機
+        await UniTask.Delay(TimeSpan.FromSeconds(InkAreaActiveTime - InkFlashingTime));
+        
+        // 点滅開始
+        float elapsedTime = 0f;
+        while (elapsedTime < InkFlashingTime)
+        {   
+            meshRenderer.enabled = !meshRenderer.enabled;
+            await UniTask.Delay(TimeSpan.FromSeconds(duration));
+            elapsedTime += duration;
+        }
+        
         Destroy(gameObject);
     }
 
