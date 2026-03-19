@@ -17025,6 +17025,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7401470555507445185, guid: 19dac62e46b0f42508e0109dabd4fed9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8392650717472386305, guid: 19dac62e46b0f42508e0109dabd4fed9, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
