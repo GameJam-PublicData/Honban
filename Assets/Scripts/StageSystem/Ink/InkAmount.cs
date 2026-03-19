@@ -26,10 +26,13 @@ public class InkAmount : MonoBehaviour,IInkAmount
     [Inject]
     public void Construct(ICurrentInkEffect currentInkEffect)
     {
-        currentInkEffect.Get.Subscribe(effect =>
-        {
-            consumeInkUsage = effect.EffectUsageRate;
-        }).AddTo(this);
+        currentInkEffect.Get.Subscribe(a).AddTo(this);
+    }
+
+    void a(IInkEffect aas)
+    {
+        if(aas == null) return;
+        consumeInkUsage = aas.EffectUsageRate;
     }
     
     bool _isHolding;
