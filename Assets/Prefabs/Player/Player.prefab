@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8864592932349078143}
   - component: {fileID: 1972347717545728653}
   - component: {fileID: 4134927385016739391}
+  - component: {fileID: 3387696274213495735}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -232,6 +233,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Player.PlayerHpManager
   hp: 10
+--- !u!114 &3387696274213495735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711025660684804707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59cb9419e8971446c812b68b85316c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageSystem.Camera.FollowObject
 --- !u!1 &4999822149049547334
 GameObject:
   m_ObjectHideFlags: 0
