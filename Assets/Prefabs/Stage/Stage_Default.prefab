@@ -888,7 +888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7cdbc2fbbe84d3e9c89ef6a3852333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackGroundScroll
-  player: {fileID: 7316227605631209523}
+  player: {fileID: 5612974274332706714}
   parallax: {x: -0.05, y: -1}
 --- !u!4 &6970746258028295884 stripped
 Transform:
