@@ -3,7 +3,7 @@ using UnityEngine;
 public class BackGroundScroll : MonoBehaviour
 {
     public Transform player;
-    public float parallax = 0.1f;
+    public Vector2 parallax;
 
     Vector3 startPos;
 
@@ -14,7 +14,9 @@ public class BackGroundScroll : MonoBehaviour
 
     void Update()
     {
-        float x = player.position.x * parallax;
-        transform.localPosition = startPos + new Vector3(x, 0, 0);
+        float x = player.position.x * parallax.x;
+        float y = player.position.y * parallax.y;
+        
+        transform.localPosition = startPos + new Vector3(x, y, 0);
     }
 }
