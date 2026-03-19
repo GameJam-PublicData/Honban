@@ -37,7 +37,7 @@ public class PlayerHpManager : MonoBehaviour, IPlayerHP
             return;
         }
         Debug.Log("ダメージ");
-        _checkPointManager.MoveCheckPoint(transform);
+        _checkPointManager.MoveCheckPoint();
     }
 
     public void Heal(int heal)

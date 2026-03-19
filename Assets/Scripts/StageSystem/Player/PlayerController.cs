@@ -13,7 +13,7 @@ namespace StageSystem.Player
         InputAction _moveAction;
     
         [SerializeField] float moveSpeed;
-        [SerializeField] private Vector2 speedUpMultiplier;
+        [SerializeField] Vector2 speedUpMultiplier;
         [SerializeField] GameObject playerSprite;
         
         private Rigidbody2D _rb;
