@@ -14,6 +14,7 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] Sprite[] jumpSprite;
     [SerializeField] Sprite[] jumpFallSprite;
     [SerializeField] Sprite[] drawSprite;
+    [SerializeField] Sprite[] damageSprite;
 
     PlayerAnimationState _animationState = PlayerAnimationState.Idle;
     int _nowAnimationFrame = 0;
@@ -25,6 +26,7 @@ public class PlayerAnimator : MonoBehaviour
     bool _isJump = false;
     bool _isFall = false;
     bool _isWalk = false;
+    bool _isDamage = false;
     
     [SerializeField]
     SpriteRenderer spriteRenderer;
@@ -58,7 +60,11 @@ public class PlayerAnimator : MonoBehaviour
     {
         PlayerAnimationState nextState;
         
-        if(_isDraw)
+        if(_isDamage)
+        {
+            nextState = PlayerAnimationState.Damage;
+        }
+        else if(_isDraw)
         {
             nextState = PlayerAnimationState.Draw;
         }
@@ -91,6 +97,12 @@ public class PlayerAnimator : MonoBehaviour
         if(_animationState == PlayerAnimationState.Draw ||
            _animationState == PlayerAnimationState.Jump) return;
         _isFall = true;
+        UpdateAnimationStateByPriority();
+    }
+
+    public void Damage()
+    {
+        _isDamage = true;
         UpdateAnimationStateByPriority();
     }
 
@@ -149,7 +161,7 @@ public class PlayerAnimator : MonoBehaviour
     
     async UniTask Animate()
     {
-        while (destroyCancellationToken.IsCancellationRequested)
+        while (destroyCancellationToken.IsCancellationRequested == false)
         {
             await UniTask.WaitUntil(() => AnimationActive, cancellationToken: destroyCancellationToken);
             await UniTask.Delay(TimeSpan.FromSeconds(animationFrameRate),cancellationToken: destroyCancellationToken);
@@ -176,6 +188,9 @@ public class PlayerAnimator : MonoBehaviour
                 case PlayerAnimationState.Draw:
                     frames = drawSprite;
                     break;
+                case PlayerAnimationState.Damage:
+                    frames = damageSprite;
+                    break;
             }
 
             if (frames == null || frames.Length == 0)
@@ -198,6 +213,10 @@ public class PlayerAnimator : MonoBehaviour
                 {
                     JumpEnd();
                 }
+                if(_animationState == PlayerAnimationState.Damage && _isDamage)
+                {
+                    _isDamage = false;
+                }
             }
             else
             {
@@ -213,6 +232,7 @@ public enum PlayerAnimationState
     Walk,
     Jump,
     JumpFall,
-    Draw
+    Draw,
+    Damage
 }
 }

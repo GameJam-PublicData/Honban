@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using StageSystem.Player;
 using UnityEngine;
+using VContainer;
 
 namespace StageSystem.CheckPoint
 {
@@ -13,17 +14,24 @@ public interface ICheckPointManager
     public UniTask MoveCheckPoint(Transform transform);
     
 }
-public class CheckPointManager  : MonoBehaviour, ICheckPointManager
+
+public class CheckPointManager : MonoBehaviour, ICheckPointManager
 {
-      List<ICheckPoint>  _checkPoints = new();
-      [SerializeField] CheckPointBlackOutManager blackOutManager;
+    List<ICheckPoint> _checkPoints = new();
+    [SerializeField] CheckPointBlackOutManager blackOutManager;
 
-      public ICheckPoint CurrentCheckPoint { get; private set; }
-      
-      
+    public ICheckPoint CurrentCheckPoint { get; private set; }
+    IActiveHandler  _activeHandler;
 
-      void Awake()
-      {
+    
+    [Inject]
+    public void Construct(IActiveHandler activeHandler)
+    {
+        _activeHandler = activeHandler;
+    }
+
+    void Awake()
+    {
           _checkPoints.Clear();
           transform.GetChild(0).GetComponentsInChildren(true, _checkPoints);
           Debug.Log($"CheckPointManager: Found {_checkPoints.Count} checkpoints in children.");
@@ -37,15 +45,18 @@ public class CheckPointManager  : MonoBehaviour, ICheckPointManager
       public void ThroughCheckPoint(ICheckPoint checkPoint)
       {
           Debug.Log($"Through checkpoint: {checkPoint.Transform.name}");
-          CurrentCheckPoint = checkPoint;
+          int currentIndex = _checkPoints.IndexOf(CurrentCheckPoint);
+          int newIndex = _checkPoints.IndexOf(checkPoint); 
+          if (newIndex > currentIndex) CurrentCheckPoint = checkPoint;//新しいチェックポイントが現在のチェックポイントよりも後にある場合、更新する
       }
 
       public async UniTask MoveCheckPoint(Transform transform)
       {
-          transform.gameObject.GetComponent<Rigidbody2D>().simulated  = false;
+          _activeHandler.StopGame();
           await blackOutManager.Active();
           transform.position = CurrentCheckPoint.Transform.position;
-          transform.gameObject.GetComponent<Rigidbody2D>().simulated = true;
+          
+          _activeHandler.ActiveGame();
       }
 }
 }

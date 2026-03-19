@@ -61,8 +61,6 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         _inputActions.Player.Attack.started -= OnAttackStarted;
         _inputActions.Player.Attack.canceled -= OnAttackCanceled;
         _inputActions.Disable();
-
-        CancelDrawing();
     }
 
     void OnAttackStarted(InputAction.CallbackContext ctx)
@@ -88,8 +86,7 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         _drawingCts?.Dispose();
         _drawingCts = null;
 
-        _cursorTrail.FadeOut();
-
+        if(_cursorTrail != null) _cursorTrail.FadeOut();
 
         if (PlayerAnimator.Instance != null)
         {
@@ -131,10 +128,7 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
                 // 交差しているか
                 if (isCrossing)
                 {
-                    Debug.Log("交差が確認されました");
                     OnCrossed(points);
-                    _cursorTrail.FadeOut();
-                    _inkManager.CreateInkArea(points);
                     break;
                 }
             }
@@ -146,7 +140,9 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
     void OnCrossed(List<Vector2> points)
     {
         Debug.Log($"交差時ポイント数: {points.Count}");
-        // TODO: points を使ってエリア確定処理へ渡す
+        _cursorTrail.FadeOut();
+        _inkManager.CreateInkArea(points);
+        _inkAmount.IsCompleteArea();
     }
 
     public void SetInputActive(bool active)
