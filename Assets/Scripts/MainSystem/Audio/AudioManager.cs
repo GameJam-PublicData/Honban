@@ -181,7 +181,7 @@ public class AudioManager : MonoBehaviour, IAudioManager
         switch (category)
         {
             case AudioCategory.BGM:
-                PlayBGM("BGMTest1").Forget();
+                //PlayBGM("BGMTest1").Forget();
                 break;
         }
     }
