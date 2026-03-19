@@ -13,6 +13,7 @@ public interface IClearUIManager
 public class ClearUIManager : MonoBehaviour , IClearUIManager
 {
     [SerializeField] Image clearImage;
+    [SerializeField] Image clearBackground;
     [SerializeField] Image gameOverImage;
 
     IActiveHandler _activeHandler;
@@ -29,6 +30,7 @@ public class ClearUIManager : MonoBehaviour , IClearUIManager
         if(isClear)
         {
             clearImage.gameObject.SetActive(true);
+            clearBackground.gameObject.SetActive(true);
             gameOverImage.gameObject.SetActive(false);
         }
         else
