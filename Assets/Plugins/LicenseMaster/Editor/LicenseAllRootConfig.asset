@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b533e214ee74c06b44e1efe7ef99a67, type: 3}
+  m_Name: LicenseAllRootConfig
+  m_EditorClassIdentifier: 
+  _licenseAllConfigList:
+  - {fileID: 11400000, guid: 2fd825f26f06b4e839b1eaec27f29484, type: 2}
+  - {fileID: 11400000, guid: d8b28eeb6b36d41a4bee93df5039578e, type: 2}
+  - {fileID: 11400000, guid: 516b6e3f7cc44412abba94c3623132c9, type: 2}
+  - {fileID: 11400000, guid: 7d17aa176604b497ebf59776f309f3f1, type: 2}
+  - {fileID: 11400000, guid: 5198e092571624c5eafbb39d44f7af5b, type: 2}
+  - {fileID: 11400000, guid: 304772590f3f34e11974f7a8af706ddc, type: 2}
+  - {fileID: 11400000, guid: 61c848b1adb1d4b8ea34c966ce58d2ec, type: 2}
+  _licenseHtml: {fileID: 4900000, guid: 3cde6c1e6e07494f99302e5987578f90, type: 3}
+  _licenseMarkdown: {fileID: 4900000, guid: d26c5da25f6547edb2caa1afd56ac64d, type: 3}
+  _licenseRawTxt: {fileID: 4900000, guid: ba4625cd84c94b4e9a266501c28b95bf, type: 3}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9995ddcf934e86b27a772e2a4bd94b, type: 3}
+  m_Name: AudioSO
+  m_EditorClassIdentifier: Assembly-CSharp::MainSystem.Audio.AudioSO
+  _seSounds:
+  - {fileID: 11400000, guid: e3e5ec9dfc9ae4be7a7dbfe205bcff85, type: 2}
+  - {fileID: 11400000, guid: 99f0d2f4a87de4f9fb010f274dee8c4c, type: 2}
+  - {fileID: 11400000, guid: 25157ab8000c744c194675686dac8c77, type: 2}
+  - {fileID: 11400000, guid: 121480a5e4445453cbdc25c1a42eca30, type: 2}
+  - {fileID: 11400000, guid: 4f50726e09ae84f9a9f313ecfaca3941, type: 2}
+  - {fileID: 11400000, guid: 244146b967a394c3b9ef6c99492c3de8, type: 2}
+  - {fileID: 11400000, guid: 37e878695294a44bf88186d064d6263a, type: 2}
+  - {fileID: 11400000, guid: 39a72bbf1ecb0456babe8f45845d93d3, type: 2}
+  _bgmSounds:
+  - {fileID: 11400000, guid: 779a4703458534a6899a336d310594ef, type: 2}
+  - {fileID: 11400000, guid: acf34e96084f04858afc6704eabe34a2, type: 2}
+  - {fileID: 11400000, guid: 4b5837da982094ed6a86017e10ed84d1, type: 2}
+  - {fileID: 11400000, guid: ce76128be31364762a6da825bf53ea1e, type: 2}
+  _jingleSounds:
+  - {fileID: 11400000, guid: 37549845033bd46258903ee973625a2a, type: 2}
