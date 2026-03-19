@@ -73,6 +73,8 @@ public class PlayerEffect : MonoBehaviour ,IPlayerEffect
         {
             effect.StopInkArea(_rigidbody2D);
             _inkEffectSubject.OnNext((false,effect));
+            
+            _audioManager.PlaySE("AntiGravityStart");
         }
         _currentEffects.Remove(inkArea);
     }

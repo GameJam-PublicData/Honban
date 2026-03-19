@@ -74,10 +74,13 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         }
         
         _audioManager.PlayLoopSE("SE_Draw");
+        _isComplete = false;
     }
 
     void OnAttackCanceled(InputAction.CallbackContext ctx) => CancelDrawing();
 
+    bool _isComplete = false;
+    
     void CancelDrawing()
     {
         Debug.Log("CancelDrawing");
@@ -94,6 +97,9 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         }
         
         _audioManager.StopLoopSE("SE_Draw");
+        
+        if (_isComplete) return;
+        _audioManager.PlaySE("DrawFailed");
     }
 
     async UniTaskVoid BeginDrawing(CancellationToken token)
@@ -128,6 +134,7 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
                 // 交差しているか
                 if (isCrossing)
                 {
+                    _isComplete = true;
                     OnCrossed(points);
                     break;
                 }
@@ -143,6 +150,8 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         _cursorTrail.FadeOut();
         _inkManager.CreateInkArea(points);
         _inkAmount.IsCompleteArea();
+        
+        _audioManager.PlaySE("DrawComplete");
     }
 
     public void SetInputActive(bool active)
