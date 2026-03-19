@@ -24,6 +24,9 @@ public interface IAudioManager
     void StopBGM(float fadeTime = 0f);
     void PlaySE(string seKey, float volume = 1f);
     void PlayJingle(string jingleKey, float volume = 1f);
+    
+    void PlayLoopSE(string seKey, float volume = 1f);
+    void StopLoopSE(string seKey);
    
     void SetVolume(AudioCategory category, float volume);
     float GetVolume(AudioCategory category);
@@ -135,6 +138,39 @@ public class AudioManager : MonoBehaviour, IAudioManager
         {
             _bgmSource.Stop();
         }
+    }
+    
+    readonly Dictionary<string, AudioSource> _loopSESources = new();
+
+    public void PlayLoopSE(string seKey, float volume = 1f)
+    {
+        AudioClip clip = audioSO.SESounds.Find(s => s.SoundName == seKey)?.Clip;
+        if (clip == null) return;
+        
+        //同じクリップがもう再生されている場合はリターン
+        if (_loopSESources.TryGetValue(seKey, out var existing) && existing != null)  
+        {   
+            return;
+        }
+        
+        AudioSource source = GetAvailable2DSource();
+        source.Stop();
+        source.loop = true;
+        source.clip = clip;
+        source.volume = volume;
+        source.Play();
+        
+        _loopSESources[seKey] = source;
+    }
+
+    public void StopLoopSE(string seKey)
+    {
+        if (!_loopSESources.TryGetValue(seKey, out var source) || source == null) return;
+        
+        source.Stop();
+        source.loop = false;
+        source.clip = null;
+        _loopSESources.Remove(seKey);
     }
 
     public void SetVolume(AudioCategory category, float volume)
