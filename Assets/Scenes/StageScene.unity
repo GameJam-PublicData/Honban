@@ -185,6 +185,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5330692137129243620, guid: 8b63c4ddb757b43aebb8ba62b8fd79cc, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 121801206}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -195,63 +199,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9113493122756889662, guid: d94f5ffa36de54c84973809250a98bff, type: 3}
   m_PrefabInstance: {fileID: 1243819818537770781}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &398719150
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4347637364553799377, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_Name
-      value: DeathArea
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
 --- !u!1001 &604542580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611,63 +558,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1001 &1589098666
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584849357504366923, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4347637364553799377, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
-      propertyPath: m_Name
-      value: DeathArea (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0cb6f5a511fd4301a347d27e4bc2ffa, type: 3}
 --- !u!1001 &1657024851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1373,6 +1263,10 @@ PrefabInstance:
       value: StageLifeTimeScope
       objectReference: {fileID: 0}
     - target: {fileID: 5376726753072841538, guid: f97dff2849dbd4c8daadefeb851fdc91, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 121801206}
+    - target: {fileID: 5376726753072841538, guid: f97dff2849dbd4c8daadefeb851fdc91, type: 3}
       propertyPath: autoInjectGameObjects.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -1517,5 +1411,3 @@ SceneRoots:
   - {fileID: 1243819818537770781}
   - {fileID: 1336170408}
   - {fileID: 2055885181}
-  - {fileID: 398719150}
-  - {fileID: 1589098666}
