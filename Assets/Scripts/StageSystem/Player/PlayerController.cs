@@ -40,9 +40,6 @@ namespace StageSystem.Player
         {
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<PlayerAnimator>();
-            _inputActions = new InputActions();
-            _inputActions.Player.Enable();
-            _moveAction = _inputActions.Player.Move;
             
             GetComponent<IPlayerEffect>().OnInkEffect.Subscribe(effectData =>
             {
@@ -51,7 +48,18 @@ namespace StageSystem.Player
                     _isNoGravity = effectData.isIn;
                 }
             }).AddTo(this);
-            
+        }
+
+        void OnEnable()
+        {
+            _inputActions = new InputActions();
+            _inputActions.Player.Enable();
+            _moveAction = _inputActions.Player.Move;
+        }
+
+        void OnDisable()
+        {
+            _inputActions.Player.Disable();
         }
 
         bool _isNoGravity = false;
@@ -115,10 +123,6 @@ namespace StageSystem.Player
             //移動ベクトルをRigidbody2Dに適用
             _rb.linearVelocity = moveVector;
         }
-
-        private void OnDestroy()
-        {
-            _inputActions.Player.Disable();
-        }
+        
     }
 }

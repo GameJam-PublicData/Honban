@@ -41,13 +41,12 @@ public class GameActiveHandler : MonoBehaviour ,IActiveHandler
     public void StopGame()
     {
         if(!_gameActive) return;
+        if(gameObject == false) return; 
         Debug.Log("ゲーム停止");
         _gameActive = false;
         rigidbody2D.bodyType = RigidbodyType2D.Static;
         playerController.enabled = false;
         playerJump.enabled = false;
-        playerAnimator.enabled = false;
-        playerAnimator.AnimationActive  = false;
         _areaController.SetInputActive(false);
         _inkSelectManager.SetInputActive(false);
     }
@@ -55,13 +54,12 @@ public class GameActiveHandler : MonoBehaviour ,IActiveHandler
     public void ActiveGame()
     {
         if(_gameActive) return;
+        if(gameObject == false) return; 
         Debug.Log("ゲーム再開");
         _gameActive = true;
         rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         playerController.enabled = true;
         playerJump.enabled = true;
-        playerAnimator.enabled = true;
-        playerAnimator.AnimationActive  = true;
         _areaController.SetInputActive(true);
         _inkSelectManager.SetInputActive(true);
     }

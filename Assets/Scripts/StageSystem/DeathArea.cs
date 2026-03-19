@@ -9,7 +9,6 @@ public class DeathArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("ダメージ");
             other.GetComponent<IPlayerDamage>().TakeDamage(1);
         }
     }
