@@ -150,6 +150,12 @@ public class PlayerJump : MonoBehaviour
                 _playerAnimator.FallEnd();
             }
         }
+        
+        //着地した時に効果音を出す
+        if (_isGround && !isGrounded)
+        {
+            _audioManager.PlaySE("landing");
+        }
     }
     
     float _defaultJumpForce;

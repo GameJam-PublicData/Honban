@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a4c8707714b5087f50e31e6cce208, type: 3}
   m_Name: AntiGravityStart
   m_EditorClassIdentifier: Assembly-CSharp::MainSystem.Audio.SoundData
-  category: 0
-  soundName: 
-  clip: {fileID: 0}
+  category: 2
+  soundName: AntiGravityStart
+  clip: {fileID: 8300000, guid: a0afc6ea15dfd46d39ffe4d60660b74a, type: 3}
   volume: 1
   loop: 0

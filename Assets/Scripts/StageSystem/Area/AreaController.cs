@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using InputSystemActions;
+using MainSystem.Audio;
 using StageSystem.Ink;
 using StageSystem.Player;
 using VContainer.Unity;
@@ -24,13 +25,20 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
     IInkManager _inkManager;
     ICursorTrail _cursorTrail;
     IInkAmount _inkAmount;
+    IAudioManager _audioManager;
 
-    public AreaController(IStrokeBuilder strokeBuilder, IInkManager inkManager, ICursorTrail cursorTrail, IInkAmount inkAmount)
+    public AreaController(
+        IStrokeBuilder strokeBuilder,
+        IInkManager inkManager, 
+        ICursorTrail cursorTrail, 
+        IInkAmount inkAmount,
+        IAudioManager audioManager)
     {
         _strokeBuilder = strokeBuilder;
         _inkManager = inkManager;
         _cursorTrail = cursorTrail;
         _inkAmount = inkAmount;
+        _audioManager = audioManager;
     }
 
     public void PostStart()
@@ -64,10 +72,15 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         {
             PlayerAnimator.Instance.DrawStart();
         }
+        
+        _audioManager.PlayLoopSE("SE_Draw");
+        _isComplete = false;
     }
 
     void OnAttackCanceled(InputAction.CallbackContext ctx) => CancelDrawing();
 
+    bool _isComplete = false;
+    
     void CancelDrawing()
     {
         Debug.Log("CancelDrawing");
@@ -82,6 +95,11 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         {
             PlayerAnimator.Instance.DrawEnd();
         }
+        
+        _audioManager.StopLoopSE("SE_Draw");
+        
+        if (_isComplete) return;
+        _audioManager.PlaySE("DrawFailed");
     }
 
     async UniTaskVoid BeginDrawing(CancellationToken token)
@@ -116,6 +134,7 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
                 // 交差しているか
                 if (isCrossing)
                 {
+                    _isComplete = true;
                     OnCrossed(points);
                     break;
                 }
@@ -131,6 +150,8 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         _cursorTrail.FadeOut();
         _inkManager.CreateInkArea(points);
         _inkAmount.IsCompleteArea();
+        
+        _audioManager.PlaySE("DrawComplete");
     }
 
     public void SetInputActive(bool active)
