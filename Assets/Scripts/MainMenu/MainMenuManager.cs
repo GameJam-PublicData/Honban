@@ -45,7 +45,7 @@ public class MainMenuManager : IMainMenuManager
     void OnGameStartButtonClicked()
     {
         _audioManager.PlaySE("ButtonPushSound");
-        _sceneLoader.LoadScene(SceneType.GameScene);
+        _sceneLoader.LoadScene(SceneType.StageScene);
     }
     
     void OnGameEndButtonClicked()

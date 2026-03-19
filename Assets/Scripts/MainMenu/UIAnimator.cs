@@ -23,7 +23,7 @@ public class UIAnimator : MonoBehaviour
     {
         while (true)
         {
-            await UniTask.Delay(System.TimeSpan.FromSeconds(animationFrameRate));
+            await UniTask.Delay(System.TimeSpan.FromSeconds(animationFrameRate),cancellationToken:destroyCancellationToken);
             _image.sprite = animationFrames[_currentFrame];
             _currentFrame++;
             if (_currentFrame >= animationFrames.Length) _currentFrame = 0;
