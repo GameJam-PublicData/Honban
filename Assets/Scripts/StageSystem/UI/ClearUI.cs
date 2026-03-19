@@ -6,7 +6,7 @@ public class ClearUI : MonoBehaviour
     [SerializeField] GameObject clearUI;
 
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Goal"))
         {
