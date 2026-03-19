@@ -281,7 +281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GameEnd
+  m_text: "\u30B2\u30FC\u30E0\u3092\u7D42\u308F\u308B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
   m_sharedMaterial: {fileID: -3542825536118788606, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
@@ -662,7 +662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3334777466954957042
 RectTransform:
   m_ObjectHideFlags: 0
@@ -814,7 +814,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MeinMenu
+  m_text: "\u30E1\u30A4\u30F3\u30E1\u30CB\u30E5\u30FC\u3078"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
   m_sharedMaterial: {fileID: -3542825536118788606, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
@@ -951,7 +951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BackCheckPoint
+  m_text: "\u30C1\u30A7\u30C3\u30AF\u30DD\u30A4\u30F3\u30C8\u3078"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
   m_sharedMaterial: {fileID: -3542825536118788606, guid: d8e8ec619854a43eea957471b5baf0b4, type: 2}
