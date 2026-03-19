@@ -11,7 +11,7 @@ public interface ICheckPointManager
 {
     public ICheckPoint CurrentCheckPoint { get; }
     public void ThroughCheckPoint(ICheckPoint checkPoint);
-    public UniTask MoveCheckPoint(Transform transform);
+    public UniTask MoveCheckPoint();
     
 }
 
@@ -23,11 +23,13 @@ public class CheckPointManager : MonoBehaviour, ICheckPointManager
     public ICheckPoint CurrentCheckPoint { get; private set; }
     IActiveHandler  _activeHandler;
 
+    Transform _playerTransform;
     
     [Inject]
-    public void Construct(IActiveHandler activeHandler)
+    public void Construct(IActiveHandler activeHandler,[Key("Player")] GameObject playerTransform)
     {
         _activeHandler = activeHandler;
+        _playerTransform = playerTransform.transform;
     }
 
     void Awake()
@@ -50,12 +52,11 @@ public class CheckPointManager : MonoBehaviour, ICheckPointManager
           if (newIndex > currentIndex) CurrentCheckPoint = checkPoint;//新しいチェックポイントが現在のチェックポイントよりも後にある場合、更新する
       }
 
-      public async UniTask MoveCheckPoint(Transform transform)
+      public async UniTask MoveCheckPoint()
       {
           _activeHandler.StopGame();
           await blackOutManager.Active();
-          transform.position = CurrentCheckPoint.Transform.position;
-          
+          _playerTransform.position = CurrentCheckPoint.Transform.position;
           _activeHandler.ActiveGame();
       }
 }

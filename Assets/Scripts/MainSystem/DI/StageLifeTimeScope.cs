@@ -6,6 +6,7 @@ using StageSystem.CheckPoint;
 using StageSystem.Ink;
 using StageSystem.Player;
 using StageSystem.UI;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -13,8 +14,10 @@ namespace MainSystem.DI
 {
 public class StageLifeTimeScope : LifetimeScope
 {
+    [SerializeField] GameObject playerTransform;
     protected override void Configure(IContainerBuilder builder)
     {
+        builder.RegisterInstance(playerTransform).AsSelf().Keyed("Player");
         // StageSceneに特化した依存関係の登録をここに追加
         builder.RegisterComponentInHierarchy<IAudioManager>();
         builder.RegisterComponentInHierarchy<InkSelectManager>().As<ICurrentInkEffect>().AsSelf();
