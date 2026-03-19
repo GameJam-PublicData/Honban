@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a4c8707714b5087f50e31e6cce208, type: 3}
   m_Name: DrawFailed
   m_EditorClassIdentifier: Assembly-CSharp::MainSystem.Audio.SoundData
-  category: 0
-  soundName: 
-  clip: {fileID: 0}
+  category: 2
+  soundName: DrawFailed
+  clip: {fileID: 8300000, guid: a69f712b38efe4b48bf68f221479fbbe, type: 3}
   volume: 1
   loop: 0
