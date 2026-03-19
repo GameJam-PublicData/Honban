@@ -53,8 +53,6 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         _inputActions.Player.Attack.started -= OnAttackStarted;
         _inputActions.Player.Attack.canceled -= OnAttackCanceled;
         _inputActions.Disable();
-
-        CancelDrawing();
     }
 
     void OnAttackStarted(InputAction.CallbackContext ctx)
@@ -78,8 +76,7 @@ public class AreaController : IPostStartable, IDisposable,IAreaController
         _drawingCts?.Dispose();
         _drawingCts = null;
 
-        _cursorTrail.FadeOut();
-
+        if(_cursorTrail != null) _cursorTrail.FadeOut();
 
         if (PlayerAnimator.Instance != null)
         {

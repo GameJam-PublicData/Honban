@@ -1,3 +1,4 @@
+using System;
 using StageSystem.CheckPoint;
 using StageSystem.UI;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PlayerHpManager : MonoBehaviour, IPlayerHP
 {
     ICheckPointManager  _checkPointManager;
     IClearUIManager  _clearUIManager;
+    PlayerAnimator _animator;
     [SerializeField] int hp = 10;//残機
 
     [Inject]
@@ -17,16 +19,24 @@ public class PlayerHpManager : MonoBehaviour, IPlayerHP
         _checkPointManager = checkPointManager;
         _clearUIManager = clearUIManager;
     }
-     
+
+    void Start()
+    {
+        _animator = GetComponent<PlayerAnimator>();
+    }
+
     public void TakeDamage(int damage)
     {
+    
         hp -= damage;
+        _animator.Damage();
         if(hp <= 0)
         {
             Debug.Log("ゲームオーバー");
             _clearUIManager.Initialize(false);
             return;
         }
+        Debug.Log("ダメージ");
         _checkPointManager.MoveCheckPoint(transform);
     }
 
